@@ -9,3 +9,14 @@
     padding-bottom: 13px;
 
 }
+
+@media screen and (max-width: 568px) {
+  .popup__input {
+    width: 238px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

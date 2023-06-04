@@ -11,5 +11,20 @@
     border: none;
     cursor: pointer;
     
+}
 
+@media screen and (max-width: 568px) {
+  .popup__button-save {
+    width: 238px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+.popup__button-save:hover {
+  background-color: rgba(0, 0, 0, .8);
+  transition: ease 1s;
 }

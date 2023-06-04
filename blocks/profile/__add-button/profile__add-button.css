@@ -21,5 +21,9 @@
         
 
     }
-        
+}
+
+.popup__add-button:hover {
+  opacity: .6;
+  transition: ease 1s;
 }

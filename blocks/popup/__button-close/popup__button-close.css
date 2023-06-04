@@ -13,3 +13,8 @@
     left: 230px;
 
 }
+
+.popup__button-close:hover {
+  opacity: .6;
+  transition: ease 1s;
+}
