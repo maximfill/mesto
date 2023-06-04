@@ -1,0 +1,16 @@
+.card__group {
+    background: #FFFFFF;
+    display: flex;
+    padding: 25px 15px 25px 21px;
+    border-radius: 0px 0px 6px 6px; 
+    align-items: center;
+}
+
+@media screen and (max-width: 576px) {
+    .card__group {
+        padding: 21px 15px 23px 21px;
+    }
+        
+}
+
+
