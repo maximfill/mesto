@@ -1,5 +1,6 @@
 .card__text {
-    width: 246px;
+    max-width: 246px;
+    width: 100%;
     margin-top: 0px;
     margin-bottom: 0px;
     font-weight: 900;

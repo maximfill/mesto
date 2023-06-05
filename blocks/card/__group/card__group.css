@@ -4,6 +4,8 @@
     padding: 25px 15px 25px 21px;
     border-radius: 0px 0px 6px 6px;
     align-items: center;
+    position: relative;
+    top: -5px;
 }
 
 @media screen and (max-width: 576px) {

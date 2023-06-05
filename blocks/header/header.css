@@ -1,5 +1,6 @@
 .header {
-    height: 74px;
+    position: relative;
+    padding-bottom: 41px;
     max-width: 880px;
     margin-top: 45px;
     border-bottom: 1px solid #545454;
@@ -8,6 +9,18 @@
 @media screen and (max-width: 768px) {
     .header{
         margin-top: 28px;
-        height: 55px;
+        padding-bottom: 37px; 
     }
+} 
+
+@media screen and (max-width: 320px) {
+  .header::after {
+    content: ' ';
+    position: absolute;
+    right: -19px;
+    bottom: -1px;
+    width: 120%;
+    height: 1px;
+    background-color: #545454;
+}
 } 
