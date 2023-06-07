@@ -8,6 +8,8 @@
     align-items: center;
     height: 24px;
     width: 24px;
+    border: 1px solid #FFFFFF;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
@@ -21,7 +23,7 @@
     }    
 }
 
-.popup__add-button:hover {
+.profile__edit-button:hover {
   opacity: .6;
   transition: ease 1s;
 }

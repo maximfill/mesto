@@ -7,9 +7,8 @@
     background: #000000;
     color: azure;
     font-size: 37px;
-    border-color:#FFFFFF;
-    
-
+    cursor: pointer;
+    border: 1px solid #FFFFFF;
 }
 
 @media screen and (max-width: 768px) {
@@ -20,7 +19,7 @@
     }
 }
 
-.popup__add-button:hover {
+.profile__add-button:hover {
   opacity: .6;
   transition: ease 1s;
 }

@@ -8,9 +8,9 @@
     cursor: pointer;
     width: 40px;
     height: 40px;
-    position: relative;
-    top: -185px;
-    left: 2px;
+    position: absolute;
+    top: -47px;
+    right: -44px;
 
 }
 
@@ -23,7 +23,7 @@
   .popup__button-close {
     width: 20px;
     height: 20px;
-    top: -185px;
-    left: -21px;
+    top: -36px;
+    right: 0px;
   }
 }
