@@ -2,6 +2,7 @@
   border: none;
   outline: none;
   background-color: #fff;
+  cursor: pointer;
 }
 
 .card__button:hover {
