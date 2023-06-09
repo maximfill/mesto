@@ -5,15 +5,11 @@
     line-height: 48px;
     margin-top: 22px;
     margin-bottom: 0px;
-    font-family: 'Inter';
-    display: flex;
-    align-items:flex-start;
-    justify-content:flex-start;
+    font-family: 'Inter', 'Arial', sans-serif;
     max-width: 400px;
-    white-space: nowrap; /* Запрещаем перенос строк */
-    overflow: hidden; /* Обрезаем все, что не помещается в область */
-    text-overflow: ellipsis; /* Добавляем многоточие */
-
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
@@ -21,6 +17,7 @@
     .profile__title {
         font-size: 27px;
         position: relative;
+        max-width: 250px;
     }
 }
 
