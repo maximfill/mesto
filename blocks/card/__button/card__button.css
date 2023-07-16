@@ -3,9 +3,15 @@
   outline: none;
   background-color: #fff;
   cursor: pointer;
+  background: no-repeat;
+  background-image:url("../../../images/Vector1.svg");
+  width: 24px;
+  height: 20px;
+  padding: 0;
 }
 
 .card__button:hover {
   opacity: .5;
-  transition: 1s ease;
+  transition: 0.3s ease;
 }
+

@@ -14,6 +14,7 @@
         <img alt="лого" class="header__logo" src="./images/header-logo.svg" />
       </header>
       <main>
+        <!-- блок профиль -->
         <div class="profile">
           <img
             alt="Жак Ив Кусто"
@@ -34,73 +35,17 @@
           </div>
           <button type="button" class="profile__add-button">+</button>
         </div>
-        <section class="card-photos">
-          <div class="card">
-            <img
-              alt="Карачаевск"
-              class="card__image"
-              src="./images/karachaevsk.png"
-            />
-            <div class="card__group">
-              <h2 class="card__text">Карачаевск</h2>
-              <button  type="button" class="card__button"><img alt="Сердце" class="card__iloves" src="./images/Vector1.svg"></button>
-            </div>
-          </div>
-          <div class="card">
-            <img
-              alt="Гора Эльбрус"
-              class="card__image"
-              src="./images/goraelbrus.png"
-            />
-            <div class="card__group">
-              <h2 class="card__text">Гора Эльбрус</h2>
-            <button type="button" class="card__button"><img alt="Сердце" class="card__iloves" src="./images/Vector1.svg"></button>
-            </div>
-          </div>
-          <div class="card">
-            <img alt="Домбай" class="card__image" src="./images/dombi.png" />
-            <div class="card__group">
-              <h2 class="card__text">Домбай</h2>
-            <button type="button" class="card__button"><img alt="Сердце" class="card__iloves" src="./images/Vector1.svg"></button>
-            </div>
-          </div>
-          <div class="card">
-            <img
-              alt="Гора Эльбрус"
-              class="card__image"
-              src="./images/goraelbrus.png"
-            />
-            <div class="card__group">
-              <h2 class="card__text">Гора Эльбрус</h2>
-              <button type="button" class="card__button"><img alt="Сердце" class="card__iloves" src="./images/Vector1.svg"></button>
-            </div>
-          </div>
-          <div class="card">
-            <img alt="Домбай" class="card__image" src="./images/dombi.png" />
-            <div class="card__group">
-              <h2 class="card__text">Домбай</h2>
-              <button type="button" class="card__button"><img alt="Сердце" class="card__iloves" src="./images/Vector1.svg"></button>
-            </div>
-          </div>
-          <div class="card">
-            <img
-              alt="Карачаевск"
-              class="card__image"
-              src="./images/karachaevsk.png"
-            />
-            <div class="card__group">
-              <h2 class="card__text">Карачаево-Ч...</h2>
-              <button type="button" class="card__button"><img alt="Сердце" class="card__iloves" src="./images/Vector1.svg"></button>
-            </div>
-          </div>
-        </section>
+
+        <!-- блок карточки -->
+
+        <section class="card-photos"></section>
       </main>
       <footer class="footer">
         <p class="footer__text">© 2023 Mesto Russia</p>
       </footer>
     </div>
 
-    <div class="popup">
+    <div class="popup popup_type_edit">
       <div class="popup__container">
         <h3 class="popup__title">Редактировать профиль</h3>
         <form class="popup__form" name="edit-profile">
@@ -124,5 +69,46 @@
         <button class="popup__button-close" type="button"></button>
       </div>
     </div>
+
+<!-- блок новый popup -->
+
+    <div class="popup popup_type_add">
+      <div class="popup__container">
+        <h3 class="popup__title">Новое место</h3>
+        <form class="popup__form" name="add-card">
+          <input
+            class="popup__input popup__input_name_title"
+            type="text"
+            name="title"
+            placeholder="Название"
+          />
+          <input
+            class="popup__input popup__input_name_link"
+            type="text"
+            name="link"
+            placeholder="Ссылка на картинку"
+          />
+          <input
+            class="popup__button-save"
+            type="submit"
+            name="submit"
+            value="Сохранить"
+          />
+        </form>
+        <button class="popup__button-close" type="button"></button>
+      </div>
+    </div>
+
+    <!--Блок template -->
+
+    <template id="card__block">
+      <div class="card">
+        <img class="card__image" alt="avatar">
+        <div class="card__group">
+          <h2 class="card__text">Карачаевск</h2>
+          <button type="button" class="card__button"></button>
+        </div>
+      </div>
+    </template>
   </body>
 </html>
