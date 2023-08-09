@@ -1,5 +1,6 @@
 .card {
     width: 282px;
     border-radius: 4%;
+    position: relative;
 
 }

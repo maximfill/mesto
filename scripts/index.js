@@ -49,15 +49,27 @@ popupCloseButtonAdd.addEventListener("click",popupToggleAdd);
 
 popupFormAdd.addEventListener("submit",buttonsaveAdd);
 
-// функция создает новую карточку
+// !!!    !!!    !!!   функция создает новую карточку
 function buttonsaveAdd(event) {
   event.preventDefault();
   const cardId = document.querySelector('#card__block').content;
-  const cardPhotos = document.querySelector('.card-photos'); 
+  const cardPhotos = document.querySelector('.card-photos');
   
   // клонируем содержимое тега template
   const cardElement = cardId.querySelector('.card').cloneNode(true);
   const cardButtonLike = cardElement.querySelector(".card__button");
+  // переменная для 1 урны
+  const cardButtonBin = cardElement.querySelector(".card__bin");
+
+  const cardImage = cardElement.querySelector('.card__image');
+  const cardTextPopap = document.querySelector('.popup__image-text');
+  cardImage.addEventListener('click',function(){
+    const popupBig = document.querySelector(".popup__big");
+    // подставляем изображение в попап//текст подставляем//на крест закрывался)
+    popupBig.src = linkInputAdd.value;//попап Биг большой попап3
+    cardTextPopap.textContent = nameInputAdd.value;
+    popupToggleImage()
+  });
   
   // наполняем содержимым
   cardElement.querySelector('.card__text').textContent = nameInputAdd.value;
@@ -69,7 +81,13 @@ function buttonsaveAdd(event) {
   cardButtonLike.addEventListener("click",function(){
     cardButtonLike.classList.toggle("card__button_active")
   })
+  ////навешиваю слушатель события и функция/ метод closest находит ближайшего родителя/ метод remove удаляет по клику всю карточку
+  cardButtonBin.addEventListener("click",function(){
+    const listCard = cardButtonBin.closest('.card');
+    listCard.remove();
+  })
 }
+
 
 // массив изначальных карточек
 const cardlink = [
@@ -99,15 +117,35 @@ const cardlink = [
   }
 ];
 
+// открываю попап изображения большой картинки //
+
+const popupImage = document.querySelector('.popup_type_picture');
+// нахожу в 3 попапе (с большой картинкой) крестик закрытия, навешиваю на него слушатель события и переиспользую 
+// функцию закрытия (popupToggleImage) 
+const popupButtonClose = popupImage.querySelector('.popup__button-close');
+popupButtonClose.addEventListener('click',popupToggleImage);
+// функция откр и закрытия попапа картинки //
+function popupToggleImage() {
+  popupImage.classList.toggle("popup_opened");
+}
 
 function creatingCards(){
   cardlink.forEach(function(card){
     const cardId = document.querySelector('#card__block').content;
-    const cardPhotos = document.querySelector('.card-photos'); 
-    
+    const cardPhotos = document.querySelector('.card-photos');
     // клонируем содержимое тега template
     const cardElement = cardId.querySelector('.card').cloneNode(true);
-    
+// //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ищем картинку в новой карточке / добавляем слушатель клика /
+    const cardImage = cardElement.querySelector('.card__image');
+    const cardTextPopap = document.querySelector('.popup__image-text');
+
+  cardImage.addEventListener("click",function(){
+    const popupBig = document.querySelector(".popup__big");
+    popupBig.src = card.link;
+    cardTextPopap.textContent = card.name;
+    popupToggleImage()
+  });
     // наполняем содержимым
     cardElement.querySelector('.card__image').src = card.link;
     cardElement.querySelector('.card__text').textContent = card.name;
@@ -130,6 +168,21 @@ cardButtonsLike.forEach(function(item){
   });
 })
 
-//  , комментарии, 
+// переменная для урны удалить
+const cardButtonsBin = document.querySelectorAll(".card__bin");
+
+
+// forEach как работатет он проходится по каждому элем. массива и при каждом вызове forEach передаёт
+// функции текущий элемент массива в качестве аргумента т.е cardButtonsBin (урны) передаем в качестве аргумента и на нее
+// навешиваю слушатель события и функция/ метод closest находит ближайшего родителя/ метод remove удаляет по клику 
+// всю карточку
+
+cardButtonsBin.forEach(function(item){
+  item.addEventListener("click",function () {
+    const listCard = item.closest('.card');
+    listCard.remove();
+  });
+});
+
 
 

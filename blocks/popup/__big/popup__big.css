@@ -1,0 +1,5 @@
+.popup__big {
+  max-height: 75vh;
+  max-width: 75vw;
+  /* opacity:initial; */
+}
