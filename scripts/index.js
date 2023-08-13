@@ -38,19 +38,22 @@ const popupCloseButtonAdd = popupAdd.querySelector(".popup__button-close");
 const nameInputAdd = popupAdd.querySelector(".popup__input_name_title");
 const linkInputAdd = popupAdd.querySelector(".popup__input_name_link");
 const popupFormAdd = popupAdd.querySelector(".popup__form");
-const popupbuttonsaveAdd = popupAdd.querySelector(".popup__button-save");
+const popupButtonsaveAdd = popupAdd.querySelector(".popup__button-save");
+const cardPhotos = document.querySelector('.card-photos');
+const cardId = document.querySelector('#card__block').content;
+const popupBig = document.querySelector(".popup__big");
 
-popupbuttonsaveAdd.addEventListener("click",popupToggleAdd);
-popupOpenButtonAdd.addEventListener("click",popupToggleAdd);
+popupButtonsaveAdd.addEventListener("click", popupToggleAdd);
+popupOpenButtonAdd.addEventListener("click", popupToggleAdd);
 function popupToggleAdd() {
   popupAdd.classList.toggle("popup_opened")
 }
-popupCloseButtonAdd.addEventListener("click",popupToggleAdd);
+popupCloseButtonAdd.addEventListener("click", popupToggleAdd);
 
-popupFormAdd.addEventListener("submit",buttonsaveAdd);
+popupFormAdd.addEventListener("submit",addNewCard);
 
 // !!!    !!!    !!!   функция создает новую карточку
-function buttonsaveAdd(event) {
+function addNewCard(event) {
   event.preventDefault();
   const cardId = document.querySelector('#card__block').content;
   const cardPhotos = document.querySelector('.card-photos');
@@ -62,12 +65,12 @@ function buttonsaveAdd(event) {
   const cardButtonBin = cardElement.querySelector(".card__bin");
 
   const cardImage = cardElement.querySelector('.card__image');
-  const cardTextPopap = document.querySelector('.popup__image-text');
-  cardImage.addEventListener('click',function(){
+  const cardTextPopup = document.querySelector('.popup__image-text');
+  cardImage.addEventListener('click', function(){
     const popupBig = document.querySelector(".popup__big");
     // подставляем изображение в попап//текст подставляем//на крест закрывался)
     popupBig.src = linkInputAdd.value;//попап Биг большой попап3
-    cardTextPopap.textContent = nameInputAdd.value;
+    cardTextPopup.textContent = nameInputAdd.value;
     popupToggleImage()
   });
   
@@ -87,7 +90,6 @@ function buttonsaveAdd(event) {
     listCard.remove();
   })
 }
-
 
 // массив изначальных карточек
 const cardlink = [
@@ -117,6 +119,7 @@ const cardlink = [
   }
 ];
 
+
 // открываю попап изображения большой картинки //
 
 const popupImage = document.querySelector('.popup_type_picture');
@@ -129,22 +132,20 @@ function popupToggleImage() {
   popupImage.classList.toggle("popup_opened");
 }
 
-function creatingCards(){
+function createInithialCards(){
   cardlink.forEach(function(card){
-    const cardId = document.querySelector('#card__block').content;
-    const cardPhotos = document.querySelector('.card-photos');
+  
     // клонируем содержимое тега template
     const cardElement = cardId.querySelector('.card').cloneNode(true);
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ищем картинку в новой карточке / добавляем слушатель клика /
     const cardImage = cardElement.querySelector('.card__image');
-    const cardTextPopap = document.querySelector('.popup__image-text');
+    const cardTextPopup = document.querySelector('.popup__image-text');
 
-  cardImage.addEventListener("click",function(){
-    const popupBig = document.querySelector(".popup__big");
-    popupBig.src = card.link;
-    cardTextPopap.textContent = card.name;
-    popupToggleImage()
+    cardImage.addEventListener("click",function(){
+      popupBig.src = card.link;
+      cardTextPopup.textContent = card.name;
+      popupToggleImage()
   });
     // наполняем содержимым
     cardElement.querySelector('.card__image').src = card.link;
@@ -152,7 +153,7 @@ function creatingCards(){
     cardPhotos.prepend(cardElement);
   })
 }
-creatingCards()
+createInithialCards()
 
 popupOpenEditButton.addEventListener("click", fillValueForm);
 popupCloseEditButton.addEventListener("click", popupToggle);
