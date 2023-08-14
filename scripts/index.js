@@ -76,7 +76,7 @@ function addNewCard(event) {
   
   // наполняем содержимым
   cardElement.querySelector('.card__text').textContent = nameInputAdd.value;
-  cardElement.querySelector('.card__image').src = linkInputAdd.value;
+  cardImage.src = linkInputAdd.value;
   
   cardPhotos.prepend(cardElement);
 
