@@ -56,7 +56,6 @@ popupFormAdd.addEventListener("submit",addNewCard);
 function addNewCard(event) {
   event.preventDefault();
   const cardId = document.querySelector('#card__block').content;
-  const cardPhotos = document.querySelector('.card-photos');
   
   // клонируем содержимое тега template
   const cardElement = cardId.querySelector('.card').cloneNode(true);
@@ -67,7 +66,6 @@ function addNewCard(event) {
   const cardImage = cardElement.querySelector('.card__image');
   const cardTextPopup = document.querySelector('.popup__image-text');
   cardImage.addEventListener('click', function(){
-    const popupBig = document.querySelector(".popup__big");
     // подставляем изображение в попап//текст подставляем//на крест закрывался)
     popupBig.src = linkInputAdd.value;//попап Биг большой попап3
     cardTextPopup.textContent = nameInputAdd.value;
@@ -146,9 +144,9 @@ function createInithialCards(){
       popupBig.src = card.link;
       cardTextPopup.textContent = card.name;
       popupToggleImage()
-  });
+    });
     // наполняем содержимым
-    cardElement.querySelector('.card__image').src = card.link;
+    cardImage.src = card.link;
     cardElement.querySelector('.card__text').textContent = card.name;
     cardPhotos.prepend(cardElement);
   })
