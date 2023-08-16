@@ -6,17 +6,38 @@ const profileProfession = document.querySelector(".profile__text");
 const nameInput = popup.querySelector(".popup__input_name_name");
 const professionInput = popup.querySelector(".popup__input_name_profession");
 const popupForm = popup.querySelector(".popup__form");
+const popupAdd = document.querySelector(".popup_type_add");
+const popupButtonsaveAdd = popupAdd.querySelector(".popup__button-save");
+const popupOpenButtonAdd = document.querySelector(".profile__add-button");
+const popupCloseButtonAdd = popupAdd.querySelector(".popup__button-close");
+const nameInputAdd = popupAdd.querySelector(".popup__input_name_title");
+const linkInputAdd = popupAdd.querySelector(".popup__input_name_link");
+const popupFormAdd = popupAdd.querySelector(".popup__form");
+const cardPhotos = document.querySelector('.card-photos');
+const cardId = document.querySelector('#card__block').content;
+const popupBig = document.querySelector(".popup__big");
+const cardTextPopup = document.querySelector('.popup__image-text');
 
+popupCloseButtonAdd.addEventListener("click", popupToggleAdd);
+popupFormAdd.addEventListener("submit",addNewCard);
+popupOpenEditButton.addEventListener("click", fillValueForm);
+popupCloseEditButton.addEventListener("click", popupToggle);
+popupForm.addEventListener("submit", formSubmitHandler);
+popup.addEventListener("click", overlayPopupClose);
+popupButtonsaveAdd.addEventListener("click", popupToggleAdd);
+popupOpenButtonAdd.addEventListener("click", popupToggleAdd);
+function popupToggleAdd() {
+  popupAdd.classList.toggle("popup_opened")
+}
+// наполняет карточку
 function popupToggle() {
   popup.classList.toggle("popup_opened")
 }
-
 function fillValueForm() {
   nameInput.value = profileName.textContent
   professionInput.value = profileProfession.textContent
   popupToggle()
 }
-
 function formSubmitHandler(event) {
   event.preventDefault();
   profileName.textContent = nameInput.value
@@ -31,64 +52,11 @@ function overlayPopupClose(event){
     popupToggle()
   }
 }
-
-const popupAdd = document.querySelector(".popup_type_add");
-const popupOpenButtonAdd = document.querySelector(".profile__add-button");
-const popupCloseButtonAdd = popupAdd.querySelector(".popup__button-close");
-const nameInputAdd = popupAdd.querySelector(".popup__input_name_title");
-const linkInputAdd = popupAdd.querySelector(".popup__input_name_link");
-const popupFormAdd = popupAdd.querySelector(".popup__form");
-const popupButtonsaveAdd = popupAdd.querySelector(".popup__button-save");
-const cardPhotos = document.querySelector('.card-photos');
-const cardId = document.querySelector('#card__block').content;
-const popupBig = document.querySelector(".popup__big");
-
-popupButtonsaveAdd.addEventListener("click", popupToggleAdd);
-popupOpenButtonAdd.addEventListener("click", popupToggleAdd);
-function popupToggleAdd() {
-  popupAdd.classList.toggle("popup_opened")
-}
-popupCloseButtonAdd.addEventListener("click", popupToggleAdd);
-
-popupFormAdd.addEventListener("submit",addNewCard);
-
-// !!!    !!!    !!!   функция создает новую карточку
+///функция создает новую карточку
 function addNewCard(event) {
   event.preventDefault();
-  const cardId = document.querySelector('#card__block').content;
-  
-  // клонируем содержимое тега template
-  const cardElement = cardId.querySelector('.card').cloneNode(true);
-  const cardButtonLike = cardElement.querySelector(".card__button");
-  // переменная для 1 урны
-  const cardButtonBin = cardElement.querySelector(".card__bin");
-
-  const cardImage = cardElement.querySelector('.card__image');
-  const cardTextPopup = document.querySelector('.popup__image-text');
-  cardImage.addEventListener('click', function(){
-    // подставляем изображение в попап//текст подставляем//на крест закрывался)
-    popupBig.src = linkInputAdd.value;//попап Биг большой попап3
-    cardTextPopup.textContent = nameInputAdd.value;
-    popupToggleImage()
-  });
-  
-  // наполняем содержимым
-  cardElement.querySelector('.card__text').textContent = nameInputAdd.value;
-  cardImage.src = linkInputAdd.value;
-  
-  cardPhotos.prepend(cardElement);
-
-  // НАвешивание слуш на кнопка лайка
-  cardButtonLike.addEventListener("click",function(){
-    cardButtonLike.classList.toggle("card__button_active")
-  })
-  ////навешиваю слушатель события и функция/ метод closest находит ближайшего родителя/ метод remove удаляет по клику всю карточку
-  cardButtonBin.addEventListener("click",function(){
-    const listCard = cardButtonBin.closest('.card');
-    listCard.remove();
-  })
+  renderCard(nameInputAdd.value, linkInputAdd.value,);
 }
-
 // массив изначальных карточек
 const cardlink = [
   {
@@ -116,10 +84,7 @@ const cardlink = [
     link: 'https://images.unsplash.com/photo-1688103920333-117afda88518?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3N3x8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
   }
 ];
-
-
 // открываю попап изображения большой картинки //
-
 const popupImage = document.querySelector('.popup_type_picture');
 // нахожу в 3 попапе (с большой картинкой) крестик закрытия, навешиваю на него слушатель события и переиспользую 
 // функцию закрытия (popupToggleImage) 
@@ -129,59 +94,42 @@ popupButtonClose.addEventListener('click',popupToggleImage);
 function popupToggleImage() {
   popupImage.classList.toggle("popup_opened");
 }
-
 function createInithialCards(){
   cardlink.forEach(function(card){
-  
-    // клонируем содержимое тега template
-    const cardElement = cardId.querySelector('.card').cloneNode(true);
-// //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // ищем картинку в новой карточке / добавляем слушатель клика /
-    const cardImage = cardElement.querySelector('.card__image');
-    const cardTextPopup = document.querySelector('.popup__image-text');
-
-    cardImage.addEventListener("click",function(){
-      popupBig.src = card.link;
-      cardTextPopup.textContent = card.name;
-      popupToggleImage()
-    });
-    // наполняем содержимым
-    cardImage.src = card.link;
-    cardElement.querySelector('.card__text').textContent = card.name;
-    cardPhotos.prepend(cardElement);
+    renderCard(card.name, card.link)
+    
   })
 }
 createInithialCards()
 
-popupOpenEditButton.addEventListener("click", fillValueForm);
-popupCloseEditButton.addEventListener("click", popupToggle);
-popupForm.addEventListener("submit", formSubmitHandler);
-popup.addEventListener("click", overlayPopupClose);
-
-// НАвешивание слуш на кнопки лайков
-const cardButtonsLike = document.querySelectorAll(".card__button");
-
-cardButtonsLike.forEach(function(item){
-  item.addEventListener("click",function(){
-    item.classList.toggle("card__button_active")
+function renderCard(titleCard, linkCard){
+  const cardElement = cardId.querySelector('.card').cloneNode(true);
+  const cardButtonLike = cardElement.querySelector(".card__button");
+  const cardButtonBin = cardElement.querySelector(".card__bin");
+  const cardImage = cardElement.querySelector('.card__image');
+  const cardText = cardElement.querySelector('.card__text');
+  const cardTextPopup = document.querySelector('.popup__image-text');
+  cardImage.addEventListener('click', function(){
+    // подставляем изображение в попап//текст подставляем//на крест закрывался)
+    popupBig.src = linkCard;//попап Биг большой попап3
+    cardTextPopup.textContent = titleCard;
+    popupToggleImage()
+  })
+    cardElement.querySelector('.card__text').textContent = nameInputAdd.value;
+  cardImage.src = linkInputAdd.value;
+  cardPhotos.prepend(cardElement);
+  cardImage.src = linkCard;
+  cardText.textContent = titleCard;
+  cardPhotos.prepend(cardElement);
+  cardButtonBin.addEventListener("click",function(){
+    const listCard = cardButtonBin.closest('.card');
+    listCard.remove();
   });
-})
-
-// переменная для урны удалить
-const cardButtonsBin = document.querySelectorAll(".card__bin");
-
-
+  cardButtonLike.addEventListener("click",function(){
+    cardButtonLike.classList.toggle("card__button_active")
+  });
+}
 // forEach как работатет он проходится по каждому элем. массива и при каждом вызове forEach передаёт
 // функции текущий элемент массива в качестве аргумента т.е cardButtonsBin (урны) передаем в качестве аргумента и на нее
 // навешиваю слушатель события и функция/ метод closest находит ближайшего родителя/ метод remove удаляет по клику 
 // всю карточку
-
-cardButtonsBin.forEach(function(item){
-  item.addEventListener("click",function () {
-    const listCard = item.closest('.card');
-    listCard.remove();
-  });
-});
-
-
-
