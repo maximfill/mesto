@@ -111,18 +111,17 @@ function renderCard(titleCard, linkCard) {
   const cardText = cardElement.querySelector('.card__text');
   const cardTextPopup = document.querySelector('.popup__image-text');
 
-// Дополнительный код для открытия/закрытия попапа
+  cardImage.src = linkCard;
+  cardText.textContent = titleCard;
+  cardPhotos.prepend(cardElement);
+
+  // Дополнительный код для открытия/закрытия попапа
   cardImage.addEventListener('click', function() {
     // подставляем изображение в попап//текст подставляем//на крест закрывался)
     popupBig.src = linkCard;//попап Биг большой попап3
     cardTextPopup.textContent = titleCard;
     popupToggleImage()
   })
-
-  cardText.textContent = nameInputAdd.value;
-  cardPhotos.prepend(cardElement);
-  cardImage.src = linkCard;
-  cardText.textContent = titleCard;
 
   cardButtonBin.addEventListener("click",function() {
     const listCard = cardButtonBin.closest('.card');
@@ -133,12 +132,6 @@ function renderCard(titleCard, linkCard) {
   });
 }
 
-// const form = document.getElementById('myForm');
-// const openPopupButton = document.getElementById('openPopup');
-
-// openPopupButton.addEventListener('click', () => {
-//   form.reset();
-// });
 // forEach как работатет он проходится по каждому элем. массива и при каждом вызове forEach передаёт
 // функции текущий элемент массива в качестве аргумента т.е cardButtonsBin (урны) передаем в качестве аргумента и на нее
 // навешиваю слушатель события и функция/ метод closest находит ближайшего родителя/ метод remove удаляет по клику 
