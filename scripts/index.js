@@ -2,7 +2,6 @@ const popup = document.querySelector(".popup_type_edit");
 const popupAdd = document.querySelector(".popup_type_add");
 const popupImage = document.querySelector('.popup_type_picture');
 const popupOpenEditButton = document.querySelector(".profile__edit-button");
-const popupCloseEditButton = document.querySelector(".popup__button-close");
 const profileName = document.querySelector(".profile__title");
 const profileProfession = document.querySelector(".profile__text");
 const nameInput = popup.querySelector(".popup__input_name_name");
@@ -10,7 +9,6 @@ const professionInput = popup.querySelector(".popup__input_name_profession");
 const popupForm = popup.querySelector(".popup__form");
 const popupButtonSaveAdd = popupAdd.querySelector(".popup__button-save");
 const popupOpenButtonAdd = document.querySelector(".profile__add-button");
-const popupCloseButtonAdd = popupAdd.querySelector(".popup__button-close");
 const nameInputAdd = popupAdd.querySelector(".popup__input_name_title");
 const linkInputAdd = popupAdd.querySelector(".popup__input_name_link");
 const popupFormAdd = popupAdd.querySelector(".popup__form");
@@ -18,7 +16,6 @@ const cardPhotos = document.querySelector('.card-photos');
 const cardId = document.querySelector('#card__block').content;
 const popupBig = document.querySelector(".popup__big");
 const cardTextPopup = document.querySelector('.popup__image-text');
-const popupButtonClose = popupImage.querySelector('.popup__button-close');
 const popupCloseButtons = document.querySelectorAll('.popup__button-close');
 
 popupCloseButtons.forEach(function(button) {
@@ -103,7 +100,6 @@ const inithialCardsData = [
 
 // нахожу в 3 попапе (с большой картинкой) крестик закрытия, навешиваю на него слушатель события и переиспользую 
 // функцию закрытия (popupToggleImage) 
-
 
 function createInithialCards() {
   inithialCardsData.forEach(function(card) {
