@@ -45,8 +45,8 @@ function formSubmitHandler(event) {
   popupToggle()
 }
 // функция закрытия попапа при клике вне попапа
-function overlayPopupClose(event){
-  if (event.target !== event.currentTarget){
+function overlayPopupClose(event) {
+  if (event.target !== event.currentTarget) {
     return 
   } else { 
     popupToggle()
@@ -55,10 +55,11 @@ function overlayPopupClose(event){
 ///функция создает новую карточку
 function addNewCard(event) {
   event.preventDefault();
-  renderCard(nameInputAdd.value, linkInputAdd.value,);
+  renderCard(nameInputAdd.value, linkInputAdd.value);
+  popupFormAdd.reset()
 }
 // массив изначальных карточек
-const cardlink = [
+const InithialCardsData = [
   {
     name: 'Мост',
     link: 'https://images.unsplash.com/photo-1688027882449-5514fc5b1e00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4N3x8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
@@ -94,41 +95,50 @@ popupButtonClose.addEventListener('click',popupToggleImage);
 function popupToggleImage() {
   popupImage.classList.toggle("popup_opened");
 }
-function createInithialCards(){
-  cardlink.forEach(function(card){
+function createInithialCards() {
+  InithialCardsData.forEach(function(card) {
     renderCard(card.name, card.link)
     
   })
 }
 createInithialCards()
 
-function renderCard(titleCard, linkCard){
+function renderCard(titleCard, linkCard) {
   const cardElement = cardId.querySelector('.card').cloneNode(true);
   const cardButtonLike = cardElement.querySelector(".card__button");
   const cardButtonBin = cardElement.querySelector(".card__bin");
   const cardImage = cardElement.querySelector('.card__image');
   const cardText = cardElement.querySelector('.card__text');
   const cardTextPopup = document.querySelector('.popup__image-text');
-  cardImage.addEventListener('click', function(){
+
+// Дополнительный код для открытия/закрытия попапа
+  cardImage.addEventListener('click', function() {
     // подставляем изображение в попап//текст подставляем//на крест закрывался)
     popupBig.src = linkCard;//попап Биг большой попап3
     cardTextPopup.textContent = titleCard;
     popupToggleImage()
   })
-    cardElement.querySelector('.card__text').textContent = nameInputAdd.value;
-  cardImage.src = linkInputAdd.value;
+
+  cardText.textContent = nameInputAdd.value;
   cardPhotos.prepend(cardElement);
   cardImage.src = linkCard;
   cardText.textContent = titleCard;
-  cardPhotos.prepend(cardElement);
-  cardButtonBin.addEventListener("click",function(){
+
+  cardButtonBin.addEventListener("click",function() {
     const listCard = cardButtonBin.closest('.card');
     listCard.remove();
   });
-  cardButtonLike.addEventListener("click",function(){
+  cardButtonLike.addEventListener("click",function() {
     cardButtonLike.classList.toggle("card__button_active")
   });
 }
+
+// const form = document.getElementById('myForm');
+// const openPopupButton = document.getElementById('openPopup');
+
+// openPopupButton.addEventListener('click', () => {
+//   form.reset();
+// });
 // forEach как работатет он проходится по каждому элем. массива и при каждом вызове forEach передаёт
 // функции текущий элемент массива в качестве аргумента т.е cardButtonsBin (урны) передаем в качестве аргумента и на нее
 // навешиваю слушатель события и функция/ метод closest находит ближайшего родителя/ метод remove удаляет по клику 
