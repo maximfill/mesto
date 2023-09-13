@@ -33,21 +33,25 @@ popupOpenButtonAdd.addEventListener("click", function() {
   openPopup(popupAdd)
 });
 
+// функция открытия попапа
 function openPopup(popup) {
   popup.classList.add("popup_opened")
 };
 
+// фуекция закрытия попапа
 function closePopup() {
   const popupOpened = document.querySelector(".popup_opened");
   popupOpened.classList.remove("popup_opened")
 };
 
+// заполнение формы попапа профиля текущими значениями
 function fillValueForm() {
   nameInput.value = profileName.textContent
   professionInput.value = profileProfession.textContent
   openPopup(popup)
 };
 
+// функция обработчик формы попапа профиля
 function formSubmitHandler(event) {
   event.preventDefault();
   profileName.textContent = nameInput.value
@@ -62,6 +66,13 @@ function overlayPopupClose(event) {
     closePopup()
   }
 };
+document.addEventListener('keydown', function (evt) {
+  // Проверяем, была ли введена цифра
+    if (evt.code === 'Escape') { 
+      closePopup()
+  }
+});
+
 ///функция создает новую карточку
 function addNewCard(event) {
   event.preventDefault();
@@ -101,6 +112,7 @@ const inithialCardsData = [
 // нахожу в 3 попапе (с большой картинкой) крестик закрытия, навешиваю на него слушатель события и переиспользую 
 // функцию закрытия (popupToggleImage) 
 
+
 function createInithialCards() {
   inithialCardsData.forEach(function(card) {
     renderCard(card.name, card.link)
@@ -108,6 +120,7 @@ function createInithialCards() {
 }
 createInithialCards()
 
+// функция создания карточек
 function renderCard(titleCard, linkCard) {
   const cardElement = cardId.querySelector('.card').cloneNode(true);
   const cardButtonLike = cardElement.querySelector(".card__button");
@@ -128,6 +141,7 @@ function renderCard(titleCard, linkCard) {
     openPopup(popupImage);
   })
   
+  // навешиваем слушатель клика на кнопку удаления карточки
   cardButtonBin.addEventListener("click",function() {
     const listCard = cardButtonBin.closest('.card');
     listCard.remove();

@@ -9,6 +9,7 @@
     font-size: 37px;
     cursor: pointer;
     border: 1px solid #FFFFFF;
+    outline: none;
 }
 
 @media screen and (max-width: 768px) {
