@@ -38,7 +38,7 @@ const setEventListeners = (formElement, settingsForm) => {
 }
 
 // 5 переключить состояние кнопки
-const toggleButtonState = (inputList, buttonElement) => {
+const toggleButtonState = (inputList, buttonElement, settingsForm) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(settingsForm.inactiveButtonClass); // сделать в css модификатор 
   } else {
@@ -54,7 +54,7 @@ const hasInvalidInput = (inputList) => {
 }
 
 // 3 проверьте достоверность ввода
-const checkInputValidity = (formElement, inputElement) => {
+const checkInputValidity = (formElement, inputElement, settingsForm) => {
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
