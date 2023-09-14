@@ -67,7 +67,7 @@ function overlayPopupClose(event) {
   }
 };
 document.addEventListener('keydown', function (evt) {
-  // Проверяем, была ли введена цифра
+  // Проверяем, была ли нажата esc
     if (evt.code === 'Escape') { 
       closePopup()
   }

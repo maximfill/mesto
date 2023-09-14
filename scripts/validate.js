@@ -1,23 +1,31 @@
+const settingsForm = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-save',
+  inactiveButtonClass: 'popup__button-save_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+};
 
 // 8 возможность проверки
-const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
+const enableValidation = (settingsForm) => {
+  const formList = Array.from(document.querySelectorAll(settingsForm.formSelector));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', function (evt) {
       evt.preventDefault();
     });
     formList.forEach((form) => {
-      setEventListeners(form);
+      setEventListeners(form, settingsForm);
     });
   });
 }
 
   // 6 установить прослушиватели событий
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  const popupButtonSave = formElement.querySelector('.popup__button-save');
+const setEventListeners = (formElement, settingsForm) => {
+  const inputList = Array.from(formElement.querySelectorAll(settingsForm.inputSelector));
+  const popupButtonSave = formElement.querySelector(settingsForm.submitButtonSelector);
 
-  toggleButtonState(inputList, popupButtonSave);
+  toggleButtonState(inputList, popupButtonSave, settingsForm);
 
 // 7  входной список
   inputList.forEach((inputElement) => {
@@ -32,9 +40,9 @@ const setEventListeners = (formElement) => {
 // 5 переключить состояние кнопки
 const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('popup__button-save_inactive'); // сделать в css модификатор 
+    buttonElement.classList.add(settingsForm.inactiveButtonClass); // сделать в css модификатор 
   } else {
-    buttonElement.classList.remove('popup__button-save_inactive'); // сделать в css модификатор
+    buttonElement.classList.remove(settingsForm.inactiveButtonClass); // сделать в css модификатор
   }
 }
 
@@ -50,25 +58,27 @@ const checkInputValidity = (formElement, inputElement) => {
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, settingsForm);
   }
 };
 
 // 2 скрыть ошибку ввода
 const hideInputError = (formElement, inputElement) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove('popup__input_type_error');
-  errorElement.classList.remove('popup__input-error_active');
+  inputElement.classList.remove(settingsForm.inputErrorClass);
+  errorElement.classList.remove(settingsForm.errorClass);
   errorElement.textContent = ''
 };
 
 // 1 показать ошибку ввода
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  console.log( inputElement.id)
-  inputElement.classList.add('popup__input_type_error');
+  inputElement.classList.add(settingsForm.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('popup__input-error_active');
+  errorElement.classList.add(settingsForm.errorClass);
 };
 
-enableValidation()
+enableValidation(settingsForm)
+
+// включение валидации вызовом enableValidation
+// все настройки передаются при вызове
