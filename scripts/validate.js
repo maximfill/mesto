@@ -31,8 +31,8 @@ const setEventListeners = (formElement, settingsForm) => {
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
 
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, popupButtonSave);
+      checkInputValidity(formElement, inputElement, settingsForm);
+      toggleButtonState(inputList, popupButtonSave, settingsForm);
     });
   });
 }
@@ -63,7 +63,7 @@ const checkInputValidity = (formElement, inputElement, settingsForm) => {
 };
 
 // 2 скрыть ошибку ввода
-const hideInputError = (formElement, inputElement) => {
+const hideInputError = (formElement, inputElement, settingsForm) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.remove(settingsForm.inputErrorClass);
   errorElement.classList.remove(settingsForm.errorClass);
@@ -71,7 +71,7 @@ const hideInputError = (formElement, inputElement) => {
 };
 
 // 1 показать ошибку ввода
-const showInputError = (formElement, inputElement, errorMessage) => {
+const showInputError = (formElement, inputElement, errorMessage, ) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.add(settingsForm.inputErrorClass);
   errorElement.textContent = errorMessage;
