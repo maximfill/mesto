@@ -56,7 +56,7 @@ const hasInvalidInput = (inputList) => {
 // 3 проверьте достоверность ввода
 const checkInputValidity = (formElement, inputElement, settingsForm) => {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    showInputError(formElement, inputElement, inputElement.validationMessage, settingsForm);
   } else {
     hideInputError(formElement, inputElement, settingsForm);
   }
@@ -71,7 +71,7 @@ const hideInputError = (formElement, inputElement, settingsForm) => {
 };
 
 // 1 показать ошибку ввода
-const showInputError = (formElement, inputElement, errorMessage, ) => {
+const showInputError = (formElement, inputElement, errorMessage, settingsForm ) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.add(settingsForm.inputErrorClass);
   errorElement.textContent = errorMessage;
