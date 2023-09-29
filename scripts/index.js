@@ -73,10 +73,11 @@ document.addEventListener('keydown', function (evt) {
   }
 });
 
-///функция создает новую карточку
+// cardPhotos.append(card.generateCard())
+///функция создает новую карточку когда сохранить в форме
 function addNewCard(event) {
   event.preventDefault();
-  renderCard(nameInputAdd.value, linkInputAdd.value);
+  cardPhotos.prepend(new Card(nameInputAdd.value, linkInputAdd.value, "#card__block").generateCard())
   popupFormAdd.reset()
   closePopup()
 };
@@ -115,43 +116,7 @@ const inithialCardsData = [
 
 function createInithialCards() {
   inithialCardsData.forEach(function(card) {
-    renderCard(card.name, card.link)
+    cardPhotos.prepend(new Card(card.name, card.link, "#card__block").generateCard())
   })
-}
+} 
 createInithialCards()
-
-// функция создания карточек
-function renderCard(titleCard, linkCard) {
-  const cardElement = cardId.querySelector('.card').cloneNode(true);
-  const cardButtonLike = cardElement.querySelector(".card__button");
-  const cardButtonBin = cardElement.querySelector(".card__bin");
-  const cardImage = cardElement.querySelector('.card__image');
-  const cardText = cardElement.querySelector('.card__text');
-  const cardTextPopup = document.querySelector('.popup__image-text');
-
-  cardImage.src = linkCard;
-  cardText.textContent = titleCard;
-  cardPhotos.prepend(cardElement);
-
-  // Дополнительный код для открытия/закрытия попапа
-  cardImage.addEventListener('click', function() {
-    // подставляем изображение в попап//текст подставляем//на крест закрывался)
-    popupBig.src = linkCard;//попап Биг большой попап3
-    cardTextPopup.textContent = titleCard;
-    openPopup(popupImage);
-  })
-  
-  // навешиваем слушатель клика на кнопку удаления карточки
-  cardButtonBin.addEventListener("click",function() {
-    const listCard = cardButtonBin.closest('.card');
-    listCard.remove();
-  });
-  cardButtonLike.addEventListener("click",function() {
-    cardButtonLike.classList.toggle("card__button_active")
-  });
-};
-
-// forEach как работатет он проходится по каждому элем. массива и при каждом вызове forEach передаёт
-// функции текущий элемент массива в качестве аргумента т.е cardButtonsBin (урны) передаем в качестве аргумента и на нее
-// навешиваю слушатель события и функция/ метод closest находит ближайшего родителя/ метод remove удаляет по клику 
-// всю карточку
