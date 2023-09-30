@@ -77,7 +77,7 @@ const showInputError = (formElement, inputElement, errorMessage, settingsForm ) 
   errorElement.classList.add(settingsForm.errorClass);
 };
 
-enableValidation(settingsForm)
+// enableValidation(settingsForm)
 
 // включение валидации вызовом enableValidation
 // все настройки передаются при вызове

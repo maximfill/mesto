@@ -128,4 +128,10 @@ const settingsForm = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_active'
 };
-let formvalidator = new FormValidator(settingsForm, popupForm);
+const editFormValidator = new FormValidator(settingsForm, popupForm);
+editFormValidator.enableValidation()
+
+const editFormValidatorPopup = new FormValidator(settingsForm, popupAdd);
+editFormValidatorPupap.enableValidation()
+
+
