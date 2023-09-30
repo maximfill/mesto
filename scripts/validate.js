@@ -1,11 +1,11 @@
-const settingsForm = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button-save',
-  inactiveButtonClass: 'popup__button-save_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-};
+// const settingsForm = {
+//   formSelector: '.popup__form',
+//   inputSelector: '.popup__input',
+//   submitButtonSelector: '.popup__button-save',
+//   inactiveButtonClass: 'popup__button-save_inactive',
+//   inputErrorClass: 'popup__input_type_error',
+//   errorClass: 'popup__input-error_active'
+// };
 
 // 8 возможность проверки
 const enableValidation = (settingsForm) => {
@@ -30,7 +30,6 @@ const setEventListeners = (formElement, settingsForm) => {
 // 7  входной список
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
-
       checkInputValidity(formElement, inputElement, settingsForm);
       toggleButtonState(inputList, popupButtonSave, settingsForm);
     });
