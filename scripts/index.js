@@ -1,3 +1,6 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 const popup = document.querySelector(".popup_type_edit");
 const popupAdd = document.querySelector(".popup_type_add");
 const popupImage = document.querySelector('.popup_type_picture');
@@ -131,7 +134,7 @@ const settingsForm = {
 const editFormValidator = new FormValidator(settingsForm, popupForm);
 editFormValidator.enableValidation()
 
-const editFormValidatorPopup = new FormValidator(settingsForm, popupAdd);
-editFormValidatorPupap.enableValidation()
+const editPopupToCreate = new FormValidator(settingsForm, popupAdd);
+editPopupToCreate.enableValidation()
 
 

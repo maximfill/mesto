@@ -1,4 +1,4 @@
-class Card {
+export default class Card {
   constructor(titleCard, linkCard, templateSelector) {
     this.titleCard = titleCard;
     this.linkCard = linkCard;
