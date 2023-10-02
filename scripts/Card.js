@@ -1,3 +1,4 @@
+import {cardTextPopup, popupBig, openPopup,  _handleOpenPopup} from './utils.js';
 export default class Card {
   constructor(titleCard, linkCard, templateSelector) {
     this.titleCard = titleCard;
@@ -11,7 +12,6 @@ export default class Card {
     this.cardImage = this.cardElement.querySelector('.card__image');
     this.cardText = this.cardElement.querySelector('.card__text');
 
-    this.popupBig = document.querySelector(".popup__big");
     this.cardTextPopup = document.querySelector('.popup__image-text');
 
     this.cardImage.src = this.linkCard;
@@ -24,9 +24,9 @@ export default class Card {
   }
   
   _handleClosePopup() {
-    this.popupBig.src = this.linkCard;//попап Биг большой попап3
-    this.cardTextPopup.textContent = this.titleCard;
-    openPopup(popupImage);
+    popupBig.src = this.linkCard;//попап Биг большой попап3
+    cardTextPopup.textContent = this.titleCard;
+    openPopup( _handleOpenPopup);
   }
   _likeCardHandler() {
     this.cardButtonLike.classList.toggle("card__button_active")
@@ -50,3 +50,4 @@ export default class Card {
     });
   }
 }
+
