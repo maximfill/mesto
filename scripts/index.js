@@ -1,22 +1,25 @@
-const popup = document.querySelector(".popup_type_edit");
-const popupAdd = document.querySelector(".popup_type_add");
-const popupImage = document.querySelector('.popup_type_picture');
-const popupOpenEditButton = document.querySelector(".profile__edit-button");
-const profileName = document.querySelector(".profile__title");
-const profileProfession = document.querySelector(".profile__text");
-const nameInput = popup.querySelector(".popup__input_name_name");
-const professionInput = popup.querySelector(".popup__input_name_profession");
-const popupForm = popup.querySelector(".popup__form");
-const popupButtonSaveAdd = popupAdd.querySelector(".popup__button-save");
-const popupOpenButtonAdd = document.querySelector(".profile__add-button");
-const nameInputAdd = popupAdd.querySelector(".popup__input_name_title");
-const linkInputAdd = popupAdd.querySelector(".popup__input_name_link");
-const popupFormAdd = popupAdd.querySelector(".popup__form");
-const cardPhotos = document.querySelector('.card-photos');
-const cardId = document.querySelector('#card__block').content;
-const popupBig = document.querySelector(".popup__big");
-const cardTextPopup = document.querySelector('.popup__image-text');
-const popupCloseButtons = document.querySelectorAll('.popup__button-close');
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+import {settingsForm} from './constants.js'
+import {inithialCardsData} from './initial-cards.js'
+import {popup,
+  popupAdd,
+  popupImage,
+  popupOpenEditButton,
+  profileName,
+  profileProfession,
+  nameInput,
+  professionInput,
+  popupForm,
+  popupOpenButtonAdd,
+  nameInputAdd,
+  linkInputAdd,
+  popupFormAdd,
+  cardPhotos,
+  popupCloseButtons,
+  openPopup,
+  closePopup
+} from './utils.js'
 
 popupCloseButtons.forEach(function(button) {
   button.addEventListener('click', closePopup)
@@ -33,16 +36,6 @@ popupOpenButtonAdd.addEventListener("click", function() {
   openPopup(popupAdd)
 });
 
-// функция открытия попапа
-function openPopup(popup) {
-  popup.classList.add("popup_opened")
-};
-
-// фуекция закрытия попапа
-function closePopup() {
-  const popupOpened = document.querySelector(".popup_opened");
-  popupOpened.classList.remove("popup_opened")
-};
 
 // заполнение формы попапа профиля текущими значениями
 function fillValueForm() {
@@ -66,6 +59,7 @@ function overlayPopupClose(event) {
     closePopup()
   }
 };
+
 document.addEventListener('keydown', function (evt) {
   // Проверяем, была ли нажата esc
     if (evt.code === 'Escape') { 
@@ -73,85 +67,31 @@ document.addEventListener('keydown', function (evt) {
   }
 });
 
-///функция создает новую карточку
+// cardPhotos.append(card.generateCard())
+///функция создает новую карточку когда сохранить в форме
 function addNewCard(event) {
   event.preventDefault();
-  renderCard(nameInputAdd.value, linkInputAdd.value);
+  cardPhotos.prepend(new Card(nameInputAdd.value, linkInputAdd.value, "#card__block").generateCard())
   popupFormAdd.reset()
   closePopup()
 };
-// массив изначальных карточек
-const inithialCardsData = [
-  {
-    name: 'Мост',
-    link: 'https://images.unsplash.com/photo-1688027882449-5514fc5b1e00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4N3x8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-  },
-  {
-    name: 'Сан Франциско',
-    link: 'https://images.unsplash.com/photo-1687913161653-7cddb0ba09b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4Mnx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-  },
-  {
-    name: 'Воздушный поцелуй',
-    link: 'https://images.unsplash.com/photo-1688079393199-ed1bfa217f60?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1OHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-  },
-  {
-    name: 'Природа',
-    link: 'https://images.unsplash.com/photo-1682687220363-35e4621ed990?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw1NXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-  },
-  {
-    name: 'Кафе',
-    link: 'https://plus.unsplash.com/premium_photo-1661344206906-ea0b40c65d15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4MHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-  },
-  {
-    name: 'Нью Йорк',
-    link: 'https://images.unsplash.com/photo-1688103920333-117afda88518?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3N3x8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60'
-  }
-];
+
 // открываю попап изображения большой картинки //
 
 // нахожу в 3 попапе (с большой картинкой) крестик закрытия, навешиваю на него слушатель события и переиспользую 
 // функцию закрытия (popupToggleImage) 
 
-
 function createInithialCards() {
   inithialCardsData.forEach(function(card) {
-    renderCard(card.name, card.link)
+    cardPhotos.prepend(new Card(card.name, card.link, "#card__block").generateCard())
   })
-}
+} 
 createInithialCards()
 
-// функция создания карточек
-function renderCard(titleCard, linkCard) {
-  const cardElement = cardId.querySelector('.card').cloneNode(true);
-  const cardButtonLike = cardElement.querySelector(".card__button");
-  const cardButtonBin = cardElement.querySelector(".card__bin");
-  const cardImage = cardElement.querySelector('.card__image');
-  const cardText = cardElement.querySelector('.card__text');
-  const cardTextPopup = document.querySelector('.popup__image-text');
+const editFormValidator = new FormValidator(settingsForm, popupForm);
+editFormValidator.enableValidation()
 
-  cardImage.src = linkCard;
-  cardText.textContent = titleCard;
-  cardPhotos.prepend(cardElement);
+const addFormValidator = new FormValidator(settingsForm, popupAdd);
+addFormValidator.enableValidation()
 
-  // Дополнительный код для открытия/закрытия попапа
-  cardImage.addEventListener('click', function() {
-    // подставляем изображение в попап//текст подставляем//на крест закрывался)
-    popupBig.src = linkCard;//попап Биг большой попап3
-    cardTextPopup.textContent = titleCard;
-    openPopup(popupImage);
-  })
-  
-  // навешиваем слушатель клика на кнопку удаления карточки
-  cardButtonBin.addEventListener("click",function() {
-    const listCard = cardButtonBin.closest('.card');
-    listCard.remove();
-  });
-  cardButtonLike.addEventListener("click",function() {
-    cardButtonLike.classList.toggle("card__button_active")
-  });
-};
 
-// forEach как работатет он проходится по каждому элем. массива и при каждом вызове forEach передаёт
-// функции текущий элемент массива в качестве аргумента т.е cardButtonsBin (урны) передаем в качестве аргумента и на нее
-// навешиваю слушатель события и функция/ метод closest находит ближайшего родителя/ метод remove удаляет по клику 
-// всю карточку
