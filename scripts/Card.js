@@ -1,4 +1,4 @@
-import {cardTextPopup, popupBig, openPopup,  _handleOpenPopup} from './utils.js';
+import {cardTextPopup, popupBig, openPopup,  popupImage} from './utils.js';
 export default class Card {
   constructor(titleCard, linkCard, templateSelector) {
     this.titleCard = titleCard;
@@ -23,10 +23,10 @@ export default class Card {
     return this.cardElement
   }
   
-  _handleClosePopup() {
+  _handleOpenPopup() {
     popupBig.src = this.linkCard;//попап Биг большой попап3
     cardTextPopup.textContent = this.titleCard;
-    openPopup( _handleOpenPopup);
+    openPopup(popupImage);
   }
   _likeCardHandler() {
     this.cardButtonLike.classList.toggle("card__button_active")
@@ -46,7 +46,7 @@ export default class Card {
     });
 
     this.cardImage.addEventListener('click', () => {
-      this._handleClosePopup()
+      this._handleOpenPopup()
     });
   }
 }

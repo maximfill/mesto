@@ -4,7 +4,7 @@ import {settingsForm} from './constants.js'
 import {inithialCardsData} from './initial-cards.js'
 import {popup,
   popupAdd,
-  _handleOpenPopup,
+  popupImage,
   popupOpenEditButton,
   profileName,
   profileProfession,
@@ -30,7 +30,7 @@ popupOpenEditButton.addEventListener("click", fillValueForm);
 popupForm.addEventListener("submit", formSubmitHandler);
 popup.addEventListener("click", overlayPopupClose);
 popupAdd.addEventListener("click", overlayPopupClose);
-_handleOpenPopup.addEventListener("click", overlayPopupClose);
+popupImage.addEventListener("click", overlayPopupClose);
 
 popupOpenButtonAdd.addEventListener("click", function() {
   openPopup(popupAdd)
