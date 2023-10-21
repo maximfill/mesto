@@ -1,7 +1,7 @@
 
 const popup = document.querySelector(".popup_type_edit");
 const popupAdd = document.querySelector(".popup_type_add");
-const  popupImage = document.querySelector('.popup_type_picture');
+const popupImage = document.querySelector('.popup_type_picture');
 const popupOpenEditButton = document.querySelector(".profile__edit-button");
 const profileName = document.querySelector(".profile__title");
 const profileProfession = document.querySelector(".profile__text");
@@ -22,7 +22,7 @@ function openPopup(popup) {
   popup.classList.add("popup_opened")
 };
 
-// фуекция закрытия попапа
+// функция закрытия попапа
 function closePopup() {
   const popupOpened = document.querySelector(".popup_opened");
   popupOpened.classList.remove("popup_opened")
