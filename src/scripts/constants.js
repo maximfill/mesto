@@ -4,8 +4,8 @@ export const settingsForm = {
   submitButtonSelector: '.popup__button-save',
   inactiveButtonClass: 'popup__button-save_inactive',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
+  errorClass: 'popup__input-error_active',
 };
 
-
+export const escClose = 'Escape'
 

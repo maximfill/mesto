@@ -5,7 +5,8 @@ import PopupWithForm from './scripts/PopupWithForm.js'
 import UserInfo from './scripts/UserInfo.js';
 import {settingsForm} from './scripts/constants.js'
 import {inithialCardsData} from './scripts/initial-cards.js'
-import {popup,
+import {
+  popup,
   popupAdd,
   popupImage,
   popupOpenEditButton,
@@ -20,6 +21,12 @@ import {popup,
   popupFormAdd,
   cardPhotos,
   popupCloseButtons,
+  popupPictureSelector,
+  popupCloseSelector,
+  popupAddSelector,
+  popupButtonCloseSelector,
+  popupEditSelector,
+  popupButtonSelector,
   openPopup,
   closePopup
 } from './scripts/utils.js'
@@ -30,14 +37,13 @@ popupCloseButtons.forEach(function(button) {
   button.addEventListener('click', closePopup)
 });
 
-popupFormAdd.addEventListener("submit", addNewCard);
 popupOpenEditButton.addEventListener("click", fillValueForm);
 popupForm.addEventListener("submit", formSubmitHandler);
-popup.addEventListener("click", overlayPopupClose);
-popupAdd.addEventListener("click", overlayPopupClose);
-popupImage.addEventListener("click", overlayPopupClose);
+// popup.addEventListener("click", overlayPopupClose);
+// popupAdd.addEventListener("click", overlayPopupClose);
+// popupImage.addEventListener("click", overlayPopupClose);
 popupOpenButtonAdd.addEventListener("click", function() {
-  openPopup(popupAdd)
+  popupAddCard.open()
 });
 
 // заполнение формы попапа профиля текущими значениями
@@ -46,7 +52,8 @@ function fillValueForm() {
   const currentInfo = userInfo.getUserInfo();
   nameInput.value = currentInfo.name;
   professionInput.value = currentInfo.info;
-  openPopup(popup)
+  // openPopup(popup)
+  popupEditProfile.open() 
 };
 
 // функция обработчик формы попапа редактирования профиля
@@ -62,20 +69,20 @@ function formSubmitHandler(event) {
 };
 
 // функция закрытия попапа при клике вне попапа
-function overlayPopupClose(event) {
-  if (event.target !== event.currentTarget) {
-    return 
-  } else { 
-    closePopup()
-  }
-};
+// function overlayPopupClose(event) {
+//   if (event.target !== event.currentTarget) {
+//     return 
+//   } else { 
+//     closePopup()
+//   }
+// };
 
-document.addEventListener('keydown', function (evt) {
-  // Проверяем, была ли нажата esc
-    if (evt.code === 'Escape') { 
-      closePopup()
-  }
-});
+// document.addEventListener('keydown', function (evt) {
+//   // Проверяем, была ли нажата esc
+//     if (evt.code === 'Escape') { 
+//       closePopup()
+//   }
+// });
 
 // cardPhotos.append(card.generateCard())
 
@@ -111,26 +118,17 @@ defaultCardGrid.renderItems()
 // нахожу в 3 попапе (с большой картинкой) крестик закрытия, навешиваю на него слушатель события и переиспользую 
 // функцию закрытия (popupToggleImage) 
 
-// function createInithialCards() {
-//   inithialCardsData.forEach(function(card) {
-//     cardPhotos.prepend(new Card(card.name, card.link, "#card__block").generateCard())
-//   })
-// } 
-// createInithialCards()
-
 const editFormValidator = new FormValidator(settingsForm, popupForm);
 editFormValidator.enableValidation()
 
 const addFormValidator = new FormValidator(settingsForm, popupAdd);
 addFormValidator.enableValidation()
 
-const popupWithImage = new PopupWithImage(".popup_type_picture", ".popup__button-close")
+const popupWithImage = new PopupWithImage(popupPictureSelector, popupCloseSelector)
 popupWithImage.setEventListeners()
 
-const popupAddCard = new PopupWithForm(".popup_type_add", ".popup__button-close",
-addNewCard)
+const popupAddCard = new PopupWithForm(popupAddSelector, popupButtonCloseSelector, addNewCard)
 popupAddCard.setEventListeners();
 
-const popupEditProfile = new PopupWithForm(".popup_type_edit", ".popup__button-close",
-formSubmitHandler)
+const popupEditProfile = new PopupWithForm(popupEditSelector, popupButtonSelector, formSubmitHandler)
 popupEditProfile.setEventListeners();

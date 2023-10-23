@@ -16,6 +16,15 @@ const cardPhotos = document.querySelector('.card-photos');
 const popupBig = document.querySelector(".popup__big");
 const cardTextPopup = document.querySelector('.popup__image-text');
 const popupCloseButtons = document.querySelectorAll('.popup__button-close');
+const popupPictureSelector = ".popup_type_picture";
+const popupCloseSelector = ".popup__button-close";
+const popupAddSelector = ".popup_type_add";
+const popupButtonCloseSelector = ".popup__button-close";
+const popupEditSelector = ".popup_type_edit";
+const popupButtonSelector = ".popup__button-close";
+const popupBigPictures = ".popup__big";
+const popupImageText = ".popup__image-text"
+
 
 // функция открытия попапа
 function openPopup(popup) {
@@ -44,6 +53,14 @@ export {popup,
   cardPhotos,
   popupBig,
   popupCloseButtons,
+  popupPictureSelector,
+  popupCloseSelector,
+  popupAddSelector,
+  popupButtonCloseSelector,
+  popupEditSelector,
+  popupButtonSelector,
+  popupBigPictures,
+  popupImageText,
   openPopup,
   closePopup
 }
