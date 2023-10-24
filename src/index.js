@@ -6,12 +6,8 @@ import UserInfo from './scripts/UserInfo.js';
 import {settingsForm} from './scripts/constants.js'
 import {inithialCardsData} from './scripts/initial-cards.js'
 import {
-  popup,
   popupAdd,
-  popupImage,
   popupOpenEditButton,
-  profileName,
-  profileProfession,
   nameInput,
   professionInput,
   popupForm,
@@ -20,28 +16,19 @@ import {
   linkInputAdd,
   popupFormAdd,
   cardPhotos,
-  popupCloseButtons,
   popupPictureSelector,
   popupCloseSelector,
   popupAddSelector,
-  popupButtonCloseSelector,
   popupEditSelector,
   popupButtonSelector,
-  openPopup,
-  closePopup
+  popupBigPictures,
+  popupImageText,
 } from './scripts/utils.js'
 import './pages/index.css';// добавьте импорт главного файла стилей
 import PopupWithImage from './scripts/PopupWithImage.js';
 
-popupCloseButtons.forEach(function(button) {
-  button.addEventListener('click', closePopup)
-});
-
 popupOpenEditButton.addEventListener("click", fillValueForm);
 popupForm.addEventListener("submit", formSubmitHandler);
-// popup.addEventListener("click", overlayPopupClose);
-// popupAdd.addEventListener("click", overlayPopupClose);
-// popupImage.addEventListener("click", overlayPopupClose);
 popupOpenButtonAdd.addEventListener("click", function() {
   popupAddCard.open()
 });
@@ -51,8 +38,7 @@ const userInfo = new UserInfo(".profile__title", ".profile__text");
 function fillValueForm() {
   const currentInfo = userInfo.getUserInfo();
   nameInput.value = currentInfo.name;
-  professionInput.value = currentInfo.info;
-  // openPopup(popup)
+  professionInput.value = currentInfo.info; 
   popupEditProfile.open() 
 };
 
@@ -67,24 +53,6 @@ function formSubmitHandler(event) {
   userInfo.setUserInfo(info);
   popupEditProfile.close()
 };
-
-// функция закрытия попапа при клике вне попапа
-// function overlayPopupClose(event) {
-//   if (event.target !== event.currentTarget) {
-//     return 
-//   } else { 
-//     closePopup()
-//   }
-// };
-
-// document.addEventListener('keydown', function (evt) {
-//   // Проверяем, была ли нажата esc
-//     if (evt.code === 'Escape') { 
-//       closePopup()
-//   }
-// });
-
-// cardPhotos.append(card.generateCard())
 
 ///функция создает новую карточку когда сохранить в форме
 function addNewCard(event) {
@@ -113,10 +81,6 @@ const defaultCardGrid = new Section({
   }
 }, ".card-photos")
 defaultCardGrid.renderItems()
-// открываю попап изображения большой картинки //
-
-// нахожу в 3 попапе (с большой картинкой) крестик закрытия, навешиваю на него слушатель события и переиспользую 
-// функцию закрытия (popupToggleImage) 
 
 const editFormValidator = new FormValidator(settingsForm, popupForm);
 editFormValidator.enableValidation()
@@ -124,10 +88,10 @@ editFormValidator.enableValidation()
 const addFormValidator = new FormValidator(settingsForm, popupAdd);
 addFormValidator.enableValidation()
 
-const popupWithImage = new PopupWithImage(popupPictureSelector, popupCloseSelector)
+const popupWithImage = new PopupWithImage(popupPictureSelector, popupCloseSelector, popupBigPictures, popupImageText)
 popupWithImage.setEventListeners()
 
-const popupAddCard = new PopupWithForm(popupAddSelector, popupButtonCloseSelector, addNewCard)
+const popupAddCard = new PopupWithForm(popupAddSelector, popupCloseSelector, addNewCard)
 popupAddCard.setEventListeners();
 
 const popupEditProfile = new PopupWithForm(popupEditSelector, popupButtonSelector, formSubmitHandler)
