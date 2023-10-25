@@ -17,24 +17,11 @@ const popupBig = document.querySelector(".popup__big");
 const cardTextPopup = document.querySelector('.popup__image-text');
 const popupCloseButtons = document.querySelectorAll('.popup__button-close');
 const popupPictureSelector = ".popup_type_picture";
-const popupCloseSelector = ".popup__button-close";
 const popupAddSelector = ".popup_type_add";
 const popupEditSelector = ".popup_type_edit";
 const popupButtonSelector = ".popup__button-close";
 const popupBigPictures = ".popup__big";
 const popupImageText = ".popup__image-text"
-
-
-// // функция открытия попапа
-// function openPopup(popup) {
-//   popup.classList.add("popup_opened")
-// };
-
-// // функция закрытия попапа
-// function closePopup() {
-//   const popupOpened = document.querySelector(".popup_opened");
-//   popupOpened.classList.remove("popup_opened")
-// };
 
 export {popup,
   popupAdd,
@@ -54,7 +41,6 @@ export {popup,
   popupBig,
   popupCloseButtons,
   popupPictureSelector,
-  popupCloseSelector,
   popupAddSelector,
   popupEditSelector,
   popupButtonSelector,

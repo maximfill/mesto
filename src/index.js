@@ -17,7 +17,6 @@ import {
   popupFormAdd,
   cardPhotos,
   popupPictureSelector,
-  popupCloseSelector,
   popupAddSelector,
   popupEditSelector,
   popupButtonSelector,
@@ -88,10 +87,10 @@ editFormValidator.enableValidation()
 const addFormValidator = new FormValidator(settingsForm, popupAdd);
 addFormValidator.enableValidation()
 
-const popupWithImage = new PopupWithImage(popupPictureSelector, popupCloseSelector, popupBigPictures, popupImageText)
+const popupWithImage = new PopupWithImage(popupPictureSelector, popupButtonSelector, popupBigPictures, popupImageText)
 popupWithImage.setEventListeners()
 
-const popupAddCard = new PopupWithForm(popupAddSelector, popupCloseSelector, addNewCard)
+const popupAddCard = new PopupWithForm(popupAddSelector, popupButtonSelector, addNewCard)
 popupAddCard.setEventListeners();
 
 const popupEditProfile = new PopupWithForm(popupEditSelector, popupButtonSelector, formSubmitHandler)
