@@ -5,12 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mesto</title>
-    <link href="./pages/index.css" rel="stylesheet"/>
   </head>
   <body class="body">
     <div class="main">
       <header class="header">
-        <img alt="лого" class="header__logo" src="./images/header-logo.svg" />
+        <img alt="лого" class="header__logo" src="<%=require('./images/header-logo.svg')%>" />
       </header>
       <main>
         <!-- блок профиль -->
@@ -18,8 +17,8 @@
           <img
             alt="Жак Ив Кусто"
             class="profile__avatar"
-            src="./images/profile__avatar.png"
-          />
+            src="<%=require('./images/profile__avatar.png')%> "
+          />'
           <div class="profile__info">
             <div class="profile__wrap">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -27,7 +26,7 @@
                 <img
                   class="profile__pencil"
                   alt="карандаш"
-                  src="./images/pencil.svg"/>
+                  src="<%=require('./images/pencil.svg')%>"/>
               </button>
             </div>
             <p class="profile__text">Исследователь океана</p>
@@ -119,7 +118,7 @@
     <div class="popup popup_type_picture">
       <div class="popup__wrap">
         <img class="popup__big" alt="" src="">
-        <button class="popup__button-close" src="./images/closeIcon.svg"></button>
+        <button class="popup__button-close"></button>
         <h3 class="popup__image-text"></h3>
       </div>
     </div>
@@ -128,7 +127,7 @@
 
     <template id="card__block">
       <div class="card">
-        <img class="card__bin" alt="bin" src="./images/Trash.svg">
+        <img class="card__bin" alt="bin" src="<%=require('./images/Trash.svg')%>">
         <img class="card__image" alt="avatar">
         <div class="card__group">
           <h2 class="card__text">Карачаевск</h2>
