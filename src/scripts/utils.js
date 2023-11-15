@@ -22,10 +22,12 @@ const popupEditSelector = ".popup_type_edit";
 const popupButtonSelector = ".popup__button-close";
 const popupBigPictures = ".popup__big";
 const popupImageText = ".popup__image-text"
+const profileImage = document.querySelector(".profile__avatar");
 
 export {popup,
   popupAdd,
   popupImage,
+  profileImage,
   popupOpenEditButton,
   profileName,
   profileProfession,

@@ -4,11 +4,13 @@ import FormValidator from './scripts/FormValidator.js';
 import PopupWithForm from './scripts/PopupWithForm.js'
 import UserInfo from './scripts/UserInfo.js';
 import {settingsForm} from './scripts/constants.js'
-import {inithialCardsData} from './scripts/initial-cards.js'
+// import {inithialCardsData} from './scripts/initial-cards.js'
+import Api from './scripts/Api.js';
 import {
   popupAdd,
   popupOpenEditButton,
   nameInput,
+  profileImage,
   professionInput,
   popupForm,
   popupOpenButtonAdd,
@@ -66,20 +68,6 @@ function addNewCard(event) {
   popupAddCard.close()
 };
 
-const defaultCardGrid = new Section({
-  items: inithialCardsData, 
-  renderer: (item) => {
-    const card = new Card(
-      item.name, item.link, "#card__block",
-      (name, link) => {
-        popupWithImage.open(name, link)
-      }
-    )
-    const cardElement = card.generateCard()
-    defaultCardGrid.addItem(cardElement)
-  }
-}, ".card-photos")
-defaultCardGrid.renderItems()
 
 const editFormValidator = new FormValidator(settingsForm, popupForm);
 editFormValidator.enableValidation()
@@ -95,3 +83,46 @@ popupAddCard.setEventListeners();
 
 const popupEditProfile = new PopupWithForm(popupEditSelector, popupButtonSelector, formSubmitHandler)
 popupEditProfile.setEventListeners();
+
+// Класс для работы с API
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-16',
+  headers: {
+    authorization: 'e8e5e3a7-8ba0-46eb-8d27-e0f2fc68826d',
+    'Content-Type': 'application/json'
+  }
+});
+
+ // Установка данных пользователя в профиль
+api.getUserInfo().then((data => {
+  profileName.textContent = data.name;
+  profileProfession.textContent = data.about;
+  profileImage.src = data.avatar;
+}));
+
+
+// Установка начальных карточек
+api.getInitialCards().then((cards) => {
+  generateInitialCards(cards);
+  }
+);
+// Отобразить все карточки на странице
+const generateInitialCards = (cards) => {
+  const defaultCardGrid = new Section({
+    items: cards, 
+    renderer: (item) => {
+      const card = new Card(
+        item.name, item.link, "#card__block",
+        (name, link) => {
+          popupWithImage.open(name, link)
+        }
+      )
+      const cardElement = card.generateCard()
+      defaultCardGrid.addItem(cardElement)
+    }
+  }, ".card-photos")
+  defaultCardGrid.renderItems()
+}
+
+const profileName = document.querySelector(".profile__title");
+const profileProfession = document.querySelector(".profile__text");
