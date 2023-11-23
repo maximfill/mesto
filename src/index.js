@@ -43,31 +43,6 @@ function fillValueForm() {
   popupEditProfile.open() 
 };
 
-// функция обработчик формы попапа редактирования профиля
-function formSubmitHandler(event) {
-  event.preventDefault();
-
-  const info = {
-    name: nameInput.value,
-    info: professionInput.value
-  }
-  userInfo.setUserInfo(info);
-  popupEditProfile.close()
-};
-
-///функция создает новую карточку когда сохранить в форме
-function addNewCard(event) {
-  event.preventDefault();
-  cardPhotos.prepend(new Card(
-    nameInputAdd.value, linkInputAdd.value, "#card__block",
-    (name, link) => {
-      popupWithImage.open(name, link)
-    }
-  ).generateCard())
-  popupFormAdd.reset()
-  popupAddCard.close()
-};
-
 
 const editFormValidator = new FormValidator(settingsForm, popupForm);
 editFormValidator.enableValidation()
@@ -84,7 +59,13 @@ popupAddCard.setEventListeners();
 const popupEditProfile = new PopupWithForm(popupEditSelector, popupButtonSelector, formSubmitHandler)
 popupEditProfile.setEventListeners();
 
-// Класс для работы с API
+
+
+//    <<<-------------------------------------------------------------------------------------------------------------------------------------------->>>
+
+
+
+// Экземпляр Класса для работы с API
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-16',
   headers: {
@@ -106,13 +87,13 @@ api.getInitialCards().then((cards) => {
   generateInitialCards(cards);
   }
 );
+
 // Отобразить все карточки на странице
 const generateInitialCards = (cards) => {
   const defaultCardGrid = new Section({
-    items: cards, 
+    items: cards,
     renderer: (item) => {
-      const card = new Card(
-        item.name, item.link, "#card__block",
+      const card = new Card(item, "#card__block",
         (name, link) => {
           popupWithImage.open(name, link)
         }
@@ -124,5 +105,40 @@ const generateInitialCards = (cards) => {
   defaultCardGrid.renderItems()
 }
 
+
+// Обработчик формы попапа редактирования профиля
+function formSubmitHandler(event) {
+  event.preventDefault();
+
+  const info = {
+    name: nameInput.value,
+    about: professionInput.value
+  }
+  console.log(info)
+  api.editUserInfo(info.name, info.about)
+  userInfo.setUserInfo(info);
+  popupEditProfile.close()
+};
+
 const profileName = document.querySelector(".profile__title");
 const profileProfession = document.querySelector(".profile__text");
+
+
+///функция создает новую карточку когда сохранить в форме (Имя, Ссылка) 
+function addNewCard(event) {
+  event.preventDefault();
+  const nameCard = nameInputAdd.value;
+  const linkCard = linkInputAdd.value;
+  api.addCard(nameCard, linkCard)
+  .then(dataCard=> {
+  
+    cardPhotos.prepend(new Card(dataCard, "#card__block",
+      (name, link) => {
+      popupWithImage.open(name, link)
+      }
+      ).generateCard())
+  })
+  popupFormAdd.reset()
+  popupAddCard.close()
+};
+

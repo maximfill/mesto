@@ -26,6 +26,34 @@ export default class Api {
     });
   }
 
+    // Отредактировать данные пользователя
+    editUserInfo(name, profession) {
+      return fetch(`${this._baseUrl}/users/me`, {
+        method: 'PATCH',
+        headers: this._headers,
+        body: JSON.stringify({
+          name: name,
+          about: profession
+        })
+      })
+      .then(response => this._checkRequestResult(response))
+      .catch(error => this._errorHandler(error));
+    }
+
+    // Добавление новой карточки на сервер с значениями пользователя
+    addCard(name, link) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        link: link
+      })
+    })
+    .then(response => this._checkRequestResult(response))
+    .catch(error => this._errorHandler(error));
+  }
+
 
 
 // Проверьте результат запроса
