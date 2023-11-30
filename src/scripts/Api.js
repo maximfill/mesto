@@ -18,7 +18,7 @@ export default class Api {
       return res.json();
     })
     .then((result) => {
-      console.log(result);
+      console.log(result, 'aaaaaaaaasasasasasassasasasasasasasasa1111111111');
       return result
     })
     .catch((err) => {

@@ -23,6 +23,9 @@ const popupButtonSelector = ".popup__button-close";
 const popupBigPictures = ".popup__big";
 const popupImageText = ".popup__image-text"
 const profileImage = document.querySelector(".profile__avatar");
+const deleteMessageType = ".popup__message_type";
+
+
 
 export {popup,
   popupAdd,
@@ -48,6 +51,7 @@ export {popup,
   popupButtonSelector,
   popupBigPictures,
   popupImageText,
+  deleteMessageType,
 }
 
 

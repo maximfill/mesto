@@ -1,14 +1,13 @@
 export default class Card {
-  constructor({name, link, likes}, templateSelector, handleCardClick) {
+  constructor({name, link, likes}, templateSelector, handleCardClick, exactlyDelete) {  //Конструктор вытаскиваем name, link, likes из ответа сервера
     this.titleCard = name;
     this.linkCard = link;
     this.likes = likes;
     this.templateSelector = templateSelector;
     this.handleCardClick = handleCardClick;
+    this.exactlyDelete = exactlyDelete;
   }
 
-
-  
   generateCard() {
     this.template = document.querySelector(this.templateSelector).content;
     this.cardElement = this.template.querySelector('.card').cloneNode(true);
@@ -19,6 +18,7 @@ export default class Card {
 
     this.cardImage.src = this.linkCard;
     this.cardText.textContent = this.titleCard;
+
     this._alreadyLikeIt()
     this.cardButtonBin = this.cardElement.querySelector(".card__bin");
     this.cardButtonLike = this.cardElement.querySelector(".card__button");
@@ -26,7 +26,7 @@ export default class Card {
     this._setEventListeners()
     return this.cardElement
   }
-
+// Метод подставить из ответа сервера кол во лайкнувших в HTML в (под сердечком)
   _alreadyLikeIt() {
     console.log( this.likes.length , "ммммммммм")
     const number = this.cardElement.querySelector(".card__number");
@@ -44,7 +44,7 @@ export default class Card {
 
   _setEventListeners() {
     this.cardButtonBin.addEventListener('click', () => {
-      this._deleteCardHandler()
+      this.exactlyDelete()
     }); 
 
     this.cardButtonLike.addEventListener('click', () => {
@@ -56,11 +56,6 @@ export default class Card {
     });
   }
   
- 
-  // // Функция установки количества лайков !!!в свойства карточки!!!
-  // setLikes(listLikes) {
-  //   this._countLikes = listLikes;
-  // }
 }
 
 

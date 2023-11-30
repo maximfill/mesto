@@ -1,10 +1,11 @@
 import Section from './scripts/Section.js';
 import Card from './scripts/Card.js';
 import FormValidator from './scripts/FormValidator.js';
-import PopupWithForm from './scripts/PopupWithForm.js'
+import PopupWithForm from './scripts/PopupWithForm.js';
+import PopupWithSubmit from './scripts/PopupWithSubmit.js';
 import UserInfo from './scripts/UserInfo.js';
 import {settingsForm} from './scripts/constants.js'
-// import {inithialCardsData} from './scripts/initial-cards.js'
+import {inithialCardsData} from './scripts/initial-cards.js'
 import Api from './scripts/Api.js';
 import {
   popupAdd,
@@ -24,6 +25,7 @@ import {
   popupButtonSelector,
   popupBigPictures,
   popupImageText,
+  deleteMessageType,
 } from './scripts/utils.js'
 import './pages/index.css';// добавьте импорт главного файла стилей
 import PopupWithImage from './scripts/PopupWithImage.js';
@@ -33,15 +35,6 @@ popupForm.addEventListener("submit", formSubmitHandler);
 popupOpenButtonAdd.addEventListener("click", function() {
   popupAddCard.open()
 });
-
-// заполнение формы попапа профиля текущими значениями
-const userInfo = new UserInfo(".profile__title", ".profile__text");
-function fillValueForm() {
-  const currentInfo = userInfo.getUserInfo();
-  nameInput.value = currentInfo.name;
-  professionInput.value = currentInfo.info; 
-  popupEditProfile.open() 
-};
 
 
 const editFormValidator = new FormValidator(settingsForm, popupForm);
@@ -58,6 +51,17 @@ popupAddCard.setEventListeners();
 
 const popupEditProfile = new PopupWithForm(popupEditSelector, popupButtonSelector, formSubmitHandler)
 popupEditProfile.setEventListeners();
+
+// ==Обработчик формы подтверждения удаления==
+const formDeleteSubmitHandler = (event) => {
+  event.preventDefault();
+  console.log('gvvccbnncncncncncncncncncncncncncncncncncncncn')
+}
+
+// Попап подтвеждения удаления
+const popupConfirm = new PopupWithSubmit(deleteMessageType, popupButtonSelector, formDeleteSubmitHandler )
+popupConfirm.setEventListeners();
+
 
 
 
@@ -96,6 +100,9 @@ const generateInitialCards = (cards) => {
       const card = new Card(item, "#card__block",
         (name, link) => {
           popupWithImage.open(name, link)
+        }, //   3 аргумент безымянная функция, открывает попап 
+        () => {
+          popupConfirm.open()
         }
       )
       const cardElement = card.generateCard()
@@ -124,6 +131,8 @@ const profileName = document.querySelector(".profile__title");
 const profileProfession = document.querySelector(".profile__text");
 
 
+
+
 ///функция создает новую карточку когда сохранить в форме (Имя, Ссылка) 
 function addNewCard(event) {
   event.preventDefault();
@@ -134,7 +143,7 @@ function addNewCard(event) {
   
     cardPhotos.prepend(new Card(dataCard, "#card__block",
       (name, link) => {
-      popupWithImage.open(name, link)
+        PopupWithSubmit.open(name, link)
       }
       ).generateCard())
   })
@@ -142,3 +151,13 @@ function addNewCard(event) {
   popupAddCard.close()
 };
 
+
+
+// заполнение формы попапа профиля текущими значениями
+const userInfo = new UserInfo(".profile__title", ".profile__text");
+function fillValueForm() {
+  const currentInfo = userInfo.getUserInfo();
+  nameInput.value = currentInfo.name;
+  professionInput.value = currentInfo.info; 
+  popupEditProfile.open() 
+};
