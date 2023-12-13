@@ -26,7 +26,8 @@ export default class Card {
     this.cardButtonBin = this.cardElement.querySelector(".card__bin");
     this.cardButtonLike = this.cardElement.querySelector(".card__button");
     if (this._userId !== this._ownerId) {
-      this.cardButtonLike.remove();
+      this.cardButtonBin.remove();
+      
     }
 
     

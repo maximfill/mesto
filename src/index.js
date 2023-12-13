@@ -113,7 +113,8 @@ const generateInitialCards = (cards) => {
       const card = new Card(item, userId, "#card__block",
         (name, link) => {
           popupWithImage.open(name, link)
-        }, //   3 аргумент безымянная функция, открывает попап 
+        },
+         //   3 аргумент безымянная функция, открывает попап 
         () => {
           popupConfirm.open(card)
         }
@@ -151,7 +152,7 @@ function addNewCard(event) {
   const linkCard = linkInputAdd.value;
   api.addCard(nameCard, linkCard)
   .then(dataCard=> {
-    cardPhotos.prepend(new Card(dataCard, userId, "#card__block",
+      const card = new Card(dataCard, userId, "#card__block",
       (name, link) => {
         PopupWithSubmit.open(name, link)
       },
@@ -159,7 +160,10 @@ function addNewCard(event) {
         () => {
           popupConfirm.open(card)
         }
-      ).generateCard())
+      )
+      const cardElement = card.generateCard()
+      cardPhotos.prepend((cardElement))
+
   })
   popupFormAdd.reset()
   popupAddCard.close()
