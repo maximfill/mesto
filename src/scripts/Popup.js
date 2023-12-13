@@ -4,8 +4,8 @@ import {
 from './constants'
 export default class Popup {
   constructor(popupSelector, closeButtonSelector) {
-    this._popup = document.querySelector(popupSelector);// получается мы создаем первым аргументом popupSelector,и ищем его через querySelector но прикол в том что при создании экземпляра 
-    this._closeButton = this._popup.querySelector(closeButtonSelector);//там уже другая Переменная  и каждый раз при соз экз мы можем подставляя название аргумента использовать другие переменные
+    this._popup = document.querySelector(popupSelector);// получается мы создаем первым аргументом popupSelector,и ищем его через querySelector но прикол в том что При Создании Экземпляра 
+    this._closeButton = this._popup.querySelector(closeButtonSelector);//там уже другая Переменная  и каждый раз при СОЗДАНИИ ЭКЗЕМПЛЯРА мы можем подставляя название аргумента использовать ДРУГИЕ ПЕРЕМЕННЫЕ
 
     this._handlerEscClose = this._handlerEscClose.bind(this);
     this._handlerClickOverlay = this._handlerClickOverlay.bind(this);
@@ -22,7 +22,6 @@ export default class Popup {
     this._popup.classList.remove("popup_opened")
     document.removeEventListener('keydown', this._handlerEscClose);
     document.removeEventListener('click', this._handlerClickOverlay);
-  
   }
 
   _handlerClickOverlay(event) {
@@ -40,5 +39,8 @@ export default class Popup {
     this._closeButton.addEventListener('click', () => {
       this.close()
     }); 
+    // this._formDeleteSubmitHandler.addEventListener('click', () => {
+    //   this.close()
+    // }); 
   }
 }

@@ -26,6 +26,7 @@ import {
   popupBigPictures,
   popupImageText,
   deleteMessageType,
+  userId,
 } from './scripts/utils.js'
 import './pages/index.css';// добавьте импорт главного файла стилей
 import PopupWithImage from './scripts/PopupWithImage.js';
@@ -53,14 +54,24 @@ const popupEditProfile = new PopupWithForm(popupEditSelector, popupButtonSelecto
 popupEditProfile.setEventListeners();
 
 // ==Обработчик формы подтверждения удаления==
-const formDeleteSubmitHandler = (event) => {
+const formDeleteSubmitHandler = (event, card) => {
   event.preventDefault();
-  console.log('gvvccbnncncncncncncncncncncncncncncncncncncncn')
-}
+  console.log('ЭТО ПРОИСХОДИТ ПРИ НАЖАТИИ ДА')
+  popupConfirm.close()// Мы вызваем Метод close у экземпляра popupConfirm, класса PopupWithSubmit, который унаследуем от Popup.
+  api.deleteCard(card.getIdCard())
+  card.deleteCard() 
+  console.log(card)
+  }
+
 
 // Попап подтвеждения удаления
-const popupConfirm = new PopupWithSubmit(deleteMessageType, popupButtonSelector, formDeleteSubmitHandler )
+const popupConfirm = new PopupWithSubmit(deleteMessageType, popupButtonSelector, 
+  (event, card) => { // Здесь начинается К О Л Л Б Э К функция, которая вызывает сама себя. Или функция которая должна быть выполнена после другой.
+    formDeleteSubmitHandler(event, card)
+  }
+)
 popupConfirm.setEventListeners();
+
 
 
 
@@ -96,13 +107,15 @@ api.getInitialCards().then((cards) => {
 const generateInitialCards = (cards) => {
   const defaultCardGrid = new Section({
     items: cards,
+    
     renderer: (item) => {
-      const card = new Card(item, "#card__block",
+      console.log('карточка', item)
+      const card = new Card(item, userId, "#card__block",
         (name, link) => {
           popupWithImage.open(name, link)
         }, //   3 аргумент безымянная функция, открывает попап 
         () => {
-          popupConfirm.open()
+          popupConfirm.open(card)
         }
       )
       const cardElement = card.generateCard()
@@ -131,8 +144,6 @@ const profileName = document.querySelector(".profile__title");
 const profileProfession = document.querySelector(".profile__text");
 
 
-
-
 ///функция создает новую карточку когда сохранить в форме (Имя, Ссылка) 
 function addNewCard(event) {
   event.preventDefault();
@@ -140,11 +151,14 @@ function addNewCard(event) {
   const linkCard = linkInputAdd.value;
   api.addCard(nameCard, linkCard)
   .then(dataCard=> {
-  
-    cardPhotos.prepend(new Card(dataCard, "#card__block",
+    cardPhotos.prepend(new Card(dataCard, userId, "#card__block",
       (name, link) => {
         PopupWithSubmit.open(name, link)
-      }
+      },
+        //   3 аргумент безымянная функция, открывает попап 
+        () => {
+          popupConfirm.open(card)
+        }
       ).generateCard())
   })
   popupFormAdd.reset()

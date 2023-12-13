@@ -24,6 +24,7 @@ const popupBigPictures = ".popup__big";
 const popupImageText = ".popup__image-text"
 const profileImage = document.querySelector(".profile__avatar");
 const deleteMessageType = ".popup__message_type";
+const userId = 'fdbdaccad2c90e74c623abba';
 
 
 
@@ -52,6 +53,7 @@ export {popup,
   popupBigPictures,
   popupImageText,
   deleteMessageType,
+  userId,
 }
 
 

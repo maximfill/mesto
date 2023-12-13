@@ -18,13 +18,29 @@ export default class Api {
       return res.json();
     })
     .then((result) => {
-      console.log(result, 'aaaaaaaaasasasasasassasasasasasasasasa1111111111');
+      console.log(result, 'НАЧАЛЬНЫЕ КАРТОЧКИ');
       return result
     })
     .catch((err) => {
       console.log('Ошибка. Запрос не выполнен: ', err);
     });
   }
+
+  
+  // Удалить карточку
+  deleteCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    })
+    .then(response => this._checkRequestResult(response))
+    .then(()=>{
+      console.log('API')
+    })
+    .catch(error => this._errorHandler(error));
+
+  }
+
 
     // Отредактировать данные пользователя
     editUserInfo(name, profession) {
@@ -53,6 +69,28 @@ export default class Api {
     .then(response => this._checkRequestResult(response))
     .catch(error => this._errorHandler(error));
   }
+
+
+  
+  // // Постановка лайка карточке
+  // likeCard(cardId) {
+  //   return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+  //     method: 'PUT',
+  //     headers: this._headers,
+  //   })
+  //   .then(response => this._checkRequestResult(response))
+  //   .catch(error => this._errorHandler(error));
+  // }
+
+  // // Удаление лайка карточке
+  // unlikeCard(cardId) {
+  //   return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+  //     method: 'DELETE',
+  //     headers: this._headers,
+  //   })
+  //   .then(response => this._checkRequestResult(response))
+  //   .catch(error => this._errorHandler(error));
+  // }
 
 
 

@@ -1,11 +1,14 @@
 export default class Card {
-  constructor({name, link, likes}, templateSelector, handleCardClick, exactlyDelete) {  //Конструктор вытаскиваем name, link, likes из ответа сервера
+  constructor({name, link, likes, owner, _id}, userId, templateSelector, handleCardClick, exactlyDelete) {  //Конструктор вытаскиваем name, link, likes из ответа сервера
     this.titleCard = name;
     this.linkCard = link;
     this.likes = likes;
     this.templateSelector = templateSelector;
     this.handleCardClick = handleCardClick;
     this.exactlyDelete = exactlyDelete;
+    this._userId = userId;
+    this._ownerId = owner._id;
+    this._cardId = _id;
   }
 
   generateCard() {
@@ -22,13 +25,24 @@ export default class Card {
     this._alreadyLikeIt()
     this.cardButtonBin = this.cardElement.querySelector(".card__bin");
     this.cardButtonLike = this.cardElement.querySelector(".card__button");
+    if (this._userId !== this._ownerId) {
+      this.cardButtonLike.remove();
+    }
+
     
     this._setEventListeners()
     return this.cardElement
   }
+
+    // Получить айди карточки
+    getIdCard() {
+      return this._cardId;
+    }
+  
+
 // Метод подставить из ответа сервера кол во лайкнувших в HTML в (под сердечком)
   _alreadyLikeIt() {
-    console.log( this.likes.length , "ммммммммм")
+    console.log( this.likes.length , "кол во лайкнувших")
     const number = this.cardElement.querySelector(".card__number");
     number.textContent = this.likes.length;
   }
@@ -54,6 +68,10 @@ export default class Card {
     this.cardImage.addEventListener('click', () => {
       this.handleCardClick(this.titleCard, this.linkCard)
     });
+  }
+  deleteCard() {
+    this.listCard = this.cardButtonBin.closest('.card');
+    this.listCard.remove();
   }
   
 }
