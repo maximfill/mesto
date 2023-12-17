@@ -111,13 +111,25 @@ const generateInitialCards = (cards) => {
     renderer: (item) => {
       console.log('карточка', item)
       const card = new Card(item, userId, "#card__block",
+
         (name, link) => {
-          popupWithImage.open(name, link)
+        popupWithImage.open(name, link)
         },
-         //   3 аргумент безымянная функция, открывает попап 
+        //   3 аргумент безымянная функция, открывает попап 
         () => {
-          popupConfirm.open(card)
-        }
+        popupConfirm.open(card)
+        },
+        () => {
+          const likedCard = card.likedCard();
+          const resultApi = likedCard ? api.unlikeCard(card.getIdCard()) : api.likeCard(card.getIdCard());
+    
+          resultApi.then(data => {
+            console.log(data)
+              card.setLikes(data.likes) // Обновляем список лайкнувших карточку
+              card.renderLikes(); // Отрисовываем на клиенте
+            });
+        },
+
       )
       const cardElement = card.generateCard()
       defaultCardGrid.addItem(cardElement)
@@ -159,7 +171,16 @@ function addNewCard(event) {
         //   3 аргумент безымянная функция, открывает попап 
         () => {
           popupConfirm.open(card)
-        }
+        },
+        () => {
+          const likedCard = card.likedCard();
+          const resultApi = likedCard ? api.unlikeCard(card.getIdCard()) : api.likeCard(card.getIdCard());
+    
+          resultApi.then(data => {
+              card.setLikes(data.likes) // Обновляем список лайкнувших карточку
+              card.renderLikes(); // Отрисовываем на клиенте
+            });
+        },
       )
       const cardElement = card.generateCard()
       cardPhotos.prepend((cardElement))

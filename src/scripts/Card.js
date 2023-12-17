@@ -1,14 +1,15 @@
 export default class Card {
-  constructor({name, link, likes, owner, _id}, userId, templateSelector, handleCardClick, exactlyDelete) {  //Конструктор вытаскиваем name, link, likes из ответа сервера
+  constructor({name, link, likes, owner, _id}, userId, templateSelector, handleCardClick, exactlyDelete, likeCardHandler) {  //Конструктор вытаскиваем name, link, likes из ответа сервера
     this.titleCard = name;
     this.linkCard = link;
-    this.likes = likes;
+    this._countLikes = likes;
     this.templateSelector = templateSelector;
     this.handleCardClick = handleCardClick;
     this.exactlyDelete = exactlyDelete;
     this._userId = userId;
     this._ownerId = owner._id;
     this._cardId = _id;
+    this.likeCardHandler = likeCardHandler;
   }
 
   generateCard() {
@@ -21,16 +22,17 @@ export default class Card {
 
     this.cardImage.src = this.linkCard;
     this.cardText.textContent = this.titleCard;
+    this._likes =  this.cardElement.querySelector(".card__number");    
 
     this._alreadyLikeIt()
     this.cardButtonBin = this.cardElement.querySelector(".card__bin");
     this.cardButtonLike = this.cardElement.querySelector(".card__button");
     if (this._userId !== this._ownerId) {
       this.cardButtonBin.remove();
-      
     }
 
-    
+    this.renderLikes();
+
     this._setEventListeners()
     return this.cardElement
   }
@@ -39,15 +41,43 @@ export default class Card {
     getIdCard() {
       return this._cardId;
     }
+
+     // Отрисовать лайки
+  renderLikes() {
+    this._likes.textContent = this._countLikes.length;
+    this.showLikes(this._userId)
+  }
   
+  // Функция изменения вида лайка
+  showLikes() {
+    if (this.likedCard(this._userId)) {
+      this.cardButtonLike.classList.add('card__button_active');
+    } else {
+      this.cardButtonLike.classList.remove('card__button_active');
+    }
+  }
+
+  // Функция определяет "Есть ли в массиве лайкнувших такой юзер?""
+  likedCard() {
+    console.log(this._likes, 777777777777)
+    return this._countLikes.some(like => {
+      return like._id === this._userId;
+    });
+  }
+
 
 // Метод подставить из ответа сервера кол во лайкнувших в HTML в (под сердечком)
   _alreadyLikeIt() {
-    console.log( this.likes.length , "кол во лайкнувших")
+    console.log( this._likes.length , "кол во лайкнувших")
     const number = this.cardElement.querySelector(".card__number");
-    number.textContent = this.likes.length;
+    number.textContent = this._likes.length;
   }
 
+
+  // Функция установки количества лайков !!!в свойства карточки!!!
+  setLikes(listLikes) {
+    this._countLikes = listLikes;
+  }
   
   _likeCardHandler() {
     this.cardButtonLike.classList.toggle("card__button_active")
@@ -63,7 +93,7 @@ export default class Card {
     }); 
 
     this.cardButtonLike.addEventListener('click', () => {
-      this._likeCardHandler()
+      this.likeCardHandler()
     });
 
     this.cardImage.addEventListener('click', () => {
