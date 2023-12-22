@@ -93,7 +93,21 @@ export default class Api {
   }
 
 
+  // Отредактировать аватар пользователя
+  editUserAvatar(urlAvatar) {
+    console.log(urlAvatar);
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: urlAvatar
+      })
+    })
+    .then(response => this._checkRequestResult(response))
+    .catch(error => this._errorHandler(error));
+  }
 
+  
 // Проверьте результат запроса
 _checkRequestResult(response) {
   if (response.ok) {

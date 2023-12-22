@@ -4,6 +4,8 @@ class PopupWithForm extends Popup {
     super(popupSelector, closeButtonSelector);
     this._submitFormHandler = submitFormHandler;
     this._popupForm = this._popup.querySelector(".popup__form");
+    this._popupSubmitButton = this._popupForm.querySelector('.popup__button-save');
+    this._defaultSubmitButtonText = this._popupSubmitButton.value;
   }
 
   _getInputValues() {
@@ -21,6 +23,12 @@ class PopupWithForm extends Popup {
       this._submitFormHandler(event)
     })
   }
+
+  waitSubmitButton(waitingText) {
+    this._popupSubmitButton.value = waitingText;
+  }
 }
 
 export default PopupWithForm;
+
+

@@ -27,6 +27,9 @@ import {
   popupImageText,
   deleteMessageType,
   userId,
+  popupSelector,
+  popupAvatarInput,
+  popupFormAvatar,
 } from './scripts/utils.js'
 import './pages/index.css';// добавьте импорт главного файла стилей
 import PopupWithImage from './scripts/PopupWithImage.js';
@@ -37,11 +40,29 @@ popupOpenButtonAdd.addEventListener("click", function() {
   popupAddCard.open()
 });
 
+// попап редактирования профиля
+profileImage.addEventListener("click",function() {
+  popupEditAvatar.open()
+});
+
+
+// ==Обработчик формы редактирования аватара==
+const formEditAvatarSubmitHandler = (event) => {
+  event.preventDefault();
+console.log(popupAvatarInput)
+  profileImage.src = popupAvatarInput.value;
+  popupEditAvatar.waitSubmitButton('Сохранение...');
+
+  api.editUserAvatar(popupAvatarInput.value)
+    .finally(() => {
+      popupEditAvatar.close();
+    });
+}
 
 const editFormValidator = new FormValidator(settingsForm, popupForm);
 editFormValidator.enableValidation()
 
-const addFormValidator = new FormValidator(settingsForm, popupAdd);
+const addFormValidator  = new FormValidator(settingsForm, popupAdd);
 addFormValidator.enableValidation()
 
 const popupWithImage = new PopupWithImage(popupPictureSelector, popupButtonSelector, popupBigPictures, popupImageText)
@@ -53,15 +74,12 @@ popupAddCard.setEventListeners();
 const popupEditProfile = new PopupWithForm(popupEditSelector, popupButtonSelector, formSubmitHandler)
 popupEditProfile.setEventListeners();
 
-// ==Обработчик формы подтверждения удаления==
-const formDeleteSubmitHandler = (event, card) => {
-  event.preventDefault();
-  console.log('ЭТО ПРОИСХОДИТ ПРИ НАЖАТИИ ДА')
-  popupConfirm.close()// Мы вызваем Метод close у экземпляра popupConfirm, класса PopupWithSubmit, который унаследуем от Popup.
-  api.deleteCard(card.getIdCard())
-  card.deleteCard() 
-  console.log(card)
-  }
+// Попап редактирования аватара
+const popupEditAvatar = new PopupWithForm(popupSelector, popupButtonSelector, formEditAvatarSubmitHandler)
+popupEditAvatar.setEventListeners();
+
+const popupEditAvatarAva = new FormValidator(settingsForm, popupFormAvatar);
+popupEditAvatarAva.enableValidation();
 
 
 // Попап подтвеждения удаления
@@ -71,7 +89,6 @@ const popupConfirm = new PopupWithSubmit(deleteMessageType, popupButtonSelector,
   }
 )
 popupConfirm.setEventListeners();
-
 
 
 
@@ -95,6 +112,9 @@ api.getUserInfo().then((data => {
   profileProfession.textContent = data.about;
   profileImage.src = data.avatar;
 }));
+
+
+
 
 
 // Установка начальных карточек
@@ -147,6 +167,7 @@ function formSubmitHandler(event) {
     name: nameInput.value,
     about: professionInput.value
   }
+  popupEditProfile.waitSubmitButton('Сохранение...')
   console.log(info)
   api.editUserInfo(info.name, info.about)
   userInfo.setUserInfo(info);

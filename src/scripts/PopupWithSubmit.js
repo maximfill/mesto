@@ -9,10 +9,6 @@ class PopupWithSubmit extends Popup {
     this._submitFormHandler = submitFormHandler;
     }
 
-    // waitSubmitButton(waitingText) {
-    //   this._submitButtonSelector.value = waitingText;
-    // }
-
     open(card) {
       this._card = card;
       super.open();
