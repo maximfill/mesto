@@ -15,6 +15,14 @@ class PopupWithForm extends Popup {
     })
   }
 
+  resetWaitSubmitButton() {
+    this._popupSubmitButton.value = this._defaultSubmitButtonText;
+  }
+
+  resetButtonText() {
+    this._popupSubmitButton.value = this._defaultSubmitButtonText;
+  }
+
   setEventListeners() {
     this._closeButton.addEventListener('click', () => {
       this.close()

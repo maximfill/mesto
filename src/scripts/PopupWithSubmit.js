@@ -4,14 +4,22 @@ class PopupWithSubmit extends Popup {
   constructor(popupSelector, closeButtonSelector, submitFormHandler) {
     super(popupSelector, closeButtonSelector);
     this._popupForm = this._popup.querySelector('.popup__form');
-    this._submitButtonSelector = this._popup.querySelector('.popup__button-save');
-    this._defaultSubmitButtonText = this._submitButtonSelector.value;
+    this._popupSubmitButton = this._popup.querySelector('.popup__button-save');
+    this._defaultSubmitButtonText = this._popupSubmitButton.value;
     this._submitFormHandler = submitFormHandler;
     }
 
     open(card) {
       this._card = card;
       super.open();
+    }
+
+    resetWaitSubmitButton() {
+      this._popupSubmitButton.value = this._defaultSubmitButtonText;
+    }
+
+    waitSubmitButton(waitingText) {
+      this._popupSubmitButton.value = waitingText;
     }
 
     setEventListeners() {

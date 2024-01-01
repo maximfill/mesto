@@ -1,4 +1,4 @@
-.card__button {
+.card__likes-number {
   border: none;
   outline: none;
   background-color: #fff;
@@ -10,7 +10,7 @@
   padding: 0;
 }
 
-.card__button:hover {
+.card__likes-number:hover {
   opacity: .5;
   transition: 0.3s ease;
 }

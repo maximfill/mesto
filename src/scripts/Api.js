@@ -14,16 +14,8 @@ export default class Api {
 // Получить начальные карточки
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {headers: this._headers})
-    .then((res) => {
-      return res.json();
-    })
-    .then((result) => {
-      console.log(result, 'НАЧАЛЬНЫЕ КАРТОЧКИ');
-      return result
-    })
-    .catch((err) => {
-      console.log('Ошибка. Запрос не выполнен: ', err);
-    });
+    .then(response => this._checkRequestResult(response))
+    .catch(error => this._errorHandler(error));
   }
 
   
@@ -35,10 +27,8 @@ export default class Api {
     })
     .then(response => this._checkRequestResult(response))
     .then(()=>{
-      console.log('API')
     })
     .catch(error => this._errorHandler(error));
-
   }
 
 
@@ -57,45 +47,44 @@ export default class Api {
     }
 
     // Добавление новой карточки на сервер с значениями пользователя
-    addCard(name, link) {
-    return fetch(`${this._baseUrl}/cards`, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: name,
-        link: link
+  addCard(name, link) {
+      return fetch(`${this._baseUrl}/cards`, {
+        method: 'POST',
+        headers: this._headers,
+        body: JSON.stringify({
+          name: name,
+          link: link
+        })
       })
-    })
     .then(response => this._checkRequestResult(response))
     .catch(error => this._errorHandler(error));
   }
 
 
   
-  // Постановка лайка карточке
-  likeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: 'PUT',
-      headers: this._headers,
-    })
-    .then(response => this._checkRequestResult(response))
-    .catch(error => this._errorHandler(error));
-  }
+    // Постановка лайка карточке
+    likeCard(cardId) {
+      return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+        method: 'PUT',
+        headers: this._headers,
+      })
+      .then(response => this._checkRequestResult(response))
+      .catch(error => this._errorHandler(error));
+    }
 
-  // Удаление лайка карточке
-  unlikeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: 'DELETE',
-      headers: this._headers,
-    })
-    .then(response => this._checkRequestResult(response))
-    .catch(error => this._errorHandler(error));
-  }
+    // Удаление лайка карточке
+    unlikeCard(cardId) {
+      return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+        method: 'DELETE',
+        headers: this._headers,
+      })
+      .then(response => this._checkRequestResult(response))
+      .catch(error => this._errorHandler(error));
+    }
 
 
   // Отредактировать аватар пользователя
   editUserAvatar(urlAvatar) {
-    console.log(urlAvatar);
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
@@ -108,15 +97,15 @@ export default class Api {
   }
 
   
-// Проверьте результат запроса
-_checkRequestResult(response) {
-  if (response.ok) {
-    return response.json(); 
+  // Проверьте результат запроса
+  _checkRequestResult(response) {
+    if (response.ok) {
+      return response.json(); 
+    }
+    return Promise.reject(`Возникла ошибка: ${response.status}`); 
   }
-  return Promise.reject(`Возникла ошибка: ${response.status}`); 
-}
-// Обработчик ошибок
-_errorHandler(error) {
-  console.log(error);
-  }
+  // Обработчик ошибок
+  _errorHandler(error) {
+    console.log(error);
+    }
 }
