@@ -24,6 +24,6 @@
 }
 
 .popup__button-save:hover {
-  background-color: rgba(0, 0, 0, .8);
+  background-color: #C4C4C4;
   transition: ease 1s;
 }
