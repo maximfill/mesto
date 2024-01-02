@@ -29,8 +29,8 @@
 @import url('../blocks/card/__image/card__image.css');
 @import url('../blocks/card/__text/card__text.css');
 @import url('../blocks/card/__group/card__group.css');
-@import url('../blocks/card/__button/card__likes-number.css');
-@import url('../blocks/card/__button/_active/card__button_active.css');
+@import url('../blocks/card/__likes-number/card__likes-number.css');
+@import url('../blocks/card/__likes-number/_active/card__likes-number_active.css');
 @import url('../blocks/card/__bin/card__bim.css');
 @import url('../blocks/card/__number/card__number.css');
 @import url('../blocks/card/__box/card__box.css');

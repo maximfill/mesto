@@ -3,44 +3,44 @@ export default class Card {
     this._titleCard = name, console.log(name);
     this._linkCard = link;
     this._countLikes = likes;
-    this.templateSelector = templateSelector;
-    this.handleCardClick = handleCardClick;
+    this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
     this._exactlyDelete = exactlyDelete;
     this._userId = userId;
     this._ownerId = owner._id;
     this._cardId = _id;
-    this.likeCardHandler = likeCardHandler;
+    this._likeCardHandler = likeCardHandler;
   }
 
   generateCard() {
-    this.template = document.querySelector(this.templateSelector).content;
-    this.cardElement = this.template.querySelector('.card').cloneNode(true);
-    this.cardImage = this.cardElement.querySelector('.card__image');
-    this.cardText = this.cardElement.querySelector('.card__text');
-    this.cardTextPopup = document.querySelector('.popup__image-text');
-    this.cardImage.src = this._linkCard;
-    this.cardText.textContent = this._titleCard;
-    this._likes =  this.cardElement.querySelector(".card__number");    
+    this._template = document.querySelector(this._templateSelector).content;
+    this._cardElement = this._template.querySelector('.card').cloneNode(true);
+    this._cardImage = this._cardElement.querySelector('.card__image');
+    this._cardText = this._cardElement.querySelector('.card__text');
+    this._cardTextPopup = document.querySelector('.popup__image-text');
+    this._cardImage.src = this._linkCard;
+    this._cardText.textContent = this._titleCard;
+    this._likes = this._cardElement.querySelector(".card__number");    
 
     this._userLikes()
-    this.cardButtonBin = this.cardElement.querySelector(".card__bin");
-    this.cardButtonLike = this.cardElement.querySelector(".card__likes-number");
+    this._cardButtonBin = this._cardElement.querySelector(".card__bin");
+    this._cardButtonLike = this._cardElement.querySelector(".card__likes-number");
     if (this._userId !== this._ownerId) {
-      this.cardButtonBin.remove();
+      this._cardButtonBin.remove();
     }
 
     this.renderLikes();
 
     this._setEventListeners()
-    return this.cardElement
+    return this._cardElement
   }
 
-    // Получить айди карточки
-    getIdCard() {
-      return this._cardId;
-    }
+  // Получить айди карточки
+  getIdCard() {
+    return this._cardId;
+  }
 
-     // Отрисовать лайки
+  // Отрисовать лайки
   renderLikes() {
     this._likes.textContent = this._countLikes.length;
     this._showLikes(this._userId)
@@ -49,9 +49,9 @@ export default class Card {
   // Функция изменения вида лайка
   _showLikes() {
     if (this.likedCard(this._userId)) {
-      this.cardButtonLike.classList.add('card__button_active');
+      this._cardButtonLike.classList.add('card__button_active');
     } else {
-      this.cardButtonLike.classList.remove('card__button_active');
+      this._cardButtonLike.classList.remove('card__button_active');
     }
   }
 
@@ -65,7 +65,7 @@ export default class Card {
 
   // Метод подставить из ответа сервера кол во лайкнувших в HTML в (под сердечком)
   _userLikes() {
-    const number = this.cardElement.querySelector(".card__number");
+    const number = this._cardElement.querySelector(".card__number");
     number.textContent = this._likes.length;
   }
 
@@ -76,28 +76,28 @@ export default class Card {
   }
   
   _likeCardHandler() {
-    this.cardButtonLike.classList.toggle("card__button_active")
+    this._cardButtonLike.classList.toggle("card__button_active")
   }
   _deleteCardHandler() {
-    this.listCard = this.cardButtonBin.closest('.card');
+    this.listCard = this._cardButtonBin.closest('.card');
     this.listCard.remove();
   }
 
   _setEventListeners() {
-    this.cardButtonBin.addEventListener('click', () => {
+    this._cardButtonBin.addEventListener('click', () => {
       this._exactlyDelete()
     }); 
 
-    this.cardButtonLike.addEventListener('click', () => {
-      this.likeCardHandler()
+    this._cardButtonLike.addEventListener('click', () => {
+      this._likeCardHandler()
     });
 
-    this.cardImage.addEventListener('click', () => {
-      this.handleCardClick(this._titleCard, this._linkCard)
+    this._cardImage.addEventListener('click', () => {
+      this._handleCardClick(this._titleCard, this._linkCard)
     });
   }
       // Удалить карточку 
   deleteCard() {
-    this.cardButtonBin.closest('.card').remove();
+    this._cardButtonBin.closest('.card').remove();
   }
 }

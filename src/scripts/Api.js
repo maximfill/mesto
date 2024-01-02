@@ -26,42 +26,38 @@ export default class Api {
       headers: this._headers,
     })
     .then(response => this._checkRequestResult(response))
-    .then(()=>{
-    })
     .catch(error => this._errorHandler(error));
   }
 
 
-    // Отредактировать данные пользователя
-    editUserInfo(name, profession) {
-      return fetch(`${this._baseUrl}/users/me`, {
-        method: 'PATCH',
-        headers: this._headers,
-        body: JSON.stringify({
-          name: name,
-          about: profession
-        })
+  // Отредактировать данные пользователя
+  editUserInfo(name, profession) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        about: profession
       })
-      .then(response => this._checkRequestResult(response))
-      .catch(error => this._errorHandler(error));
-    }
-
-    // Добавление новой карточки на сервер с значениями пользователя
-  addCard(name, link) {
-      return fetch(`${this._baseUrl}/cards`, {
-        method: 'POST',
-        headers: this._headers,
-        body: JSON.stringify({
-          name: name,
-          link: link
-        })
-      })
+    })
     .then(response => this._checkRequestResult(response))
     .catch(error => this._errorHandler(error));
   }
 
+    // Добавление новой карточки на сервер с значениями пользователя
+  addCard(name, link) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        link: link
+      })
+    })
+    .then(response => this._checkRequestResult(response))
+    .catch(error => this._errorHandler(error));
+  }
 
-  
     // Постановка лайка карточке
     likeCard(cardId) {
       return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
@@ -107,5 +103,5 @@ export default class Api {
   // Обработчик ошибок
   _errorHandler(error) {
     console.log(error);
-    }
+  }
 }

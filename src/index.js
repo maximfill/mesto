@@ -124,7 +124,7 @@ api.getUserInfo().then((data => {
 
 // Установка начальных карточек
 api.getInitialCards().then((cards) => {
-  generateInitialCards(cards);
+    generateInitialCards(cards);
   }
 );
 
@@ -132,16 +132,14 @@ api.getInitialCards().then((cards) => {
 const generateInitialCards = (cards) => {
   const defaultCardGrid = new Section({
     items: cards,
-    
     renderer: (item) => {
-      console.log('карточка', item)
       const card = new Card(item, userId, "#card__block",
         (name, link) => {
         popupWithImage.open(name, link)
         },
         //   3 аргумент безымянная функция, открывает попап 
         () => {
-        popupConfirm.open(card)
+          popupConfirm.open(card)
         },
         () => {
           const likedCard = card.likedCard();
@@ -185,25 +183,25 @@ function addNewCard(event) {
   const linkCard = linkInputAdd.value;
   api.addCard(nameCard, linkCard)
   .then(dataCard=> {
-      const card = new Card(dataCard, userId, "#card__block",
+    const card = new Card(dataCard, userId, "#card__block",
       (name, link) => {
         PopupWithSubmit.open(name, link)
       },
         //   3 аргумент безымянная функция, открывает попап 
-        () => {
-          popupConfirm.open(card)
-        },
-        () => {
-          const likedCard = card.likedCard();
-          const resultApi = likedCard ? api.unlikeCard(card.getIdCard()) : api.likeCard(card.getIdCard());
+      () => {
+        popupConfirm.open(card)
+      },
+      () => {
+        const likedCard = card.likedCard();
+        const resultApi = likedCard ? api.unlikeCard(card.getIdCard()) : api.likeCard(card.getIdCard());
           resultApi.then(data => {
-              card.setLikes(data.likes) // Обновляем список лайкнувших карточку
-              card.renderLikes(); // Отрисовываем на клиенте
+            card.setLikes(data.likes) // Обновляем список лайкнувших карточку
+            card.renderLikes(); // Отрисовываем на клиенте
           });
-        },
-      )
-      const cardElement = card.generateCard()
-      cardPhotos.prepend((cardElement))
+      },
+    )
+    const cardElement = card.generateCard()
+    cardPhotos.prepend((cardElement))
   })
   popupFormAdd.reset()
   popupAddCard.close()
