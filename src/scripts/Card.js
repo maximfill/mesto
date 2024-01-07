@@ -1,6 +1,6 @@
 export default class Card {
   constructor({name, link, likes, owner, _id}, userId, templateSelector, handleCardClick, exactlyDelete, likeCardHandler) {  //Конструктор вытаскиваем name, link, likes из ответа сервера
-    this._titleCard = name, console.log(name);
+    this._titleCard = name;
     this._linkCard = link;
     this._countLikes = likes;
     this._templateSelector = templateSelector;

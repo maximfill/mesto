@@ -10,7 +10,6 @@ import {
   popupAdd,
   popupOpenEditButton,
   nameInput,
-  profileImage,
   professionInput,
   popupForm,
   popupOpenButtonAdd,
@@ -29,30 +28,36 @@ import {
   popupSelector,
   popupAvatarInput,
   popupFormAvatar,
+  profileAvatar,
 } from './scripts/utils.js'
 import './pages/index.css';// добавьте импорт главного файла стилей
 import PopupWithImage from './scripts/PopupWithImage.js';
 
-popupOpenEditButton.addEventListener("click", fillValueForm);
+// слушатель события открытие попапа редактирования профиля
+popupOpenEditButton.addEventListener("click", fillValueForm)
+
 popupForm.addEventListener("submit", formSubmitHandler);
+
 popupOpenButtonAdd.addEventListener("click", function() {
+  addFormValidator.resetForm()
   popupAddCard.open()
   popupAddCard.resetWaitSubmitButton();
 });
 
-// попап редактирования профиля
-profileImage.addEventListener("click",function() {
+// попап редактирования аватара 
+profileAvatar.addEventListener("click",function() {
   popupEditAvatar.resetButtonText()
+  popupEditAvatarForms.resetForm() 
   popupEditAvatar.open()
+  
 });
-
 
 // ==Обработчик формы редактирования аватара==
 const formEditAvatarSubmitHandler = (event) => {
   event.preventDefault();
-  profileImage.src = popupAvatarInput.value;
+  profileAvatar.src = popupAvatarInput.value;
   popupEditAvatar.waitSubmitButton('Сохранение...');
-
+  
   api.editUserAvatar(popupAvatarInput.value)
     .finally(() => {
       popupEditAvatar.close();
@@ -74,9 +79,9 @@ const formDeleteSubmitHandler = (event, card) => {
 }
 
 const editFormValidator = new FormValidator(settingsForm, popupForm);
-editFormValidator.enableValidation()
+editFormValidator.enableValidation() //создаются экз и вызывается этот метод
 
-const addFormValidator  = new FormValidator(settingsForm, popupAdd);
+const addFormValidator  = new FormValidator(settingsForm, popupFormAdd);
 addFormValidator.enableValidation()
 
 const popupWithImage = new PopupWithImage(popupPictureSelector, popupButtonSelector, popupBigPictures, popupImageText)
@@ -92,8 +97,8 @@ popupEditProfile.setEventListeners();
 const popupEditAvatar = new PopupWithForm(popupSelector, popupButtonSelector, formEditAvatarSubmitHandler)
 popupEditAvatar.setEventListeners();
 
-const popupEditAvatarAva = new FormValidator(settingsForm, popupFormAvatar);
-popupEditAvatarAva.enableValidation();
+const popupEditAvatarForms = new FormValidator(settingsForm, popupFormAvatar);
+popupEditAvatarForms.enableValidation();
 
 
 // Попап подтвеждения удаления
@@ -119,7 +124,7 @@ const api = new Api({
 api.getUserInfo().then((data => {
   profileName.textContent = data.name;
   profileProfession.textContent = data.about;
-  profileImage.src = data.avatar;
+  profileAvatar.src = data.avatar;
 }));
 
 // Установка начальных карточек
@@ -135,7 +140,7 @@ const generateInitialCards = (cards) => {
     renderer: (item) => {
       const card = new Card(item, userId, "#card__block",
         (name, link) => {
-        popupWithImage.open(name, link)
+          popupWithImage.open(name, link)
         },
         //   3 аргумент безымянная функция, открывает попап 
         () => {
@@ -183,6 +188,7 @@ function addNewCard(event) {
   const linkCard = linkInputAdd.value;
   api.addCard(nameCard, linkCard)
   .then(dataCard=> {
+    console.log(dataCard)
     const card = new Card(dataCard, userId, "#card__block",
       (name, link) => {
         PopupWithSubmit.open(name, link)
@@ -207,12 +213,13 @@ function addNewCard(event) {
   popupAddCard.close()
 };
 
-// заполнение формы попапа профиля текущими значениями ОБРАБОТЧИК ОТКРЫТИЯ ПОПАПА РЕДАКТИРОВАНИЯ
+// ОБРАБОТЧИК ОТКРЫТИЯ ПОПАПА РЕДАКТИРОВАНИЯ
 const userInfo = new UserInfo(".profile__title", ".profile__text");
 function fillValueForm() {
   const currentInfo = userInfo.getUserInfo();
   nameInput.value = currentInfo.name;
   professionInput.value = currentInfo.info; 
   popupEditProfile.open() 
-  popupEditProfile.resetButtonText()// обнуление текста при открытие попапа
+  popupEditProfile.resetButtonText() // обнуление текста при открытие попапа
+  editFormValidator.resetForm() //Функция для сброса формы
 };

@@ -22,8 +22,8 @@ const popupAddSelector = ".popup_type_add";
 const popupEditSelector = ".popup_type_edit";
 const popupButtonSelector = ".popup__button-close";
 const popupBigPictures = ".popup__big";
-const popupImageText = ".popup__image-text"
-const profileImage = document.querySelector(".profile__avatar");
+const popupImageText = ".popup__image-text";
+const profileAvatar = document.querySelector('.profile');
 const deleteMessageType = ".popup__message_type";
 const userId = 'fdbdaccad2c90e74c623abba';
 const popupSelector = ".popup__type_avatar";
@@ -35,7 +35,6 @@ const popupFormAvatar = popupAvatar.querySelector(".popup__form");
 export {popup,
   popupAdd,
   popupImage,
-  profileImage,
   popupOpenEditButton,
   profileName,
   profileProfession,
@@ -61,6 +60,7 @@ export {popup,
   popupSelector,
   popupAvatarInput,
   popupFormAvatar,
+  profileAvatar,
 }
 
 
