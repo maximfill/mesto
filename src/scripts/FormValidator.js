@@ -23,7 +23,7 @@ export default class FormValidator {
       buttonElement.setAttribute('disabled', '');
     } else {
       buttonElement.classList.remove(this._inactiveButtonClass); // сделать в css модификатор
-      buttonElement.setAttribute('disabled', '');
+      buttonElement.removeAttribute('disabled', '');
     }
   }
 

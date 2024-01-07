@@ -29,6 +29,7 @@ import {
   popupAvatarInput,
   popupFormAvatar,
   profileAvatar,
+  profileAvatarWrapp,
 } from './scripts/utils.js'
 import './pages/index.css';// добавьте импорт главного файла стилей
 import PopupWithImage from './scripts/PopupWithImage.js';
@@ -39,17 +40,16 @@ popupOpenEditButton.addEventListener("click", fillValueForm)
 popupForm.addEventListener("submit", formSubmitHandler);
 
 popupOpenButtonAdd.addEventListener("click", function() {
-  // addFormValidator.resetForm()
+  addFormValidator.resetForm()
   popupAddCard.open()
   popupAddCard.resetWaitSubmitButton();
 });
 
 // попап редактирования аватара 
-profileAvatar.addEventListener("click",function() {
+profileAvatarWrapp.addEventListener("click",function() {
   popupEditAvatar.resetButtonText()
   popupEditAvatarForms.resetForm() 
   popupEditAvatar.open()
-  
 });
 
 // ==Обработчик формы редактирования аватара==

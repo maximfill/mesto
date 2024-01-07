@@ -23,7 +23,8 @@ const popupEditSelector = ".popup_type_edit";
 const popupButtonSelector = ".popup__button-close";
 const popupBigPictures = ".popup__big";
 const popupImageText = ".popup__image-text";
-const profileAvatar = document.querySelector('.profile');
+const profileAvatarWrapp = document.querySelector('.profile__avatar-wrapp');
+const profileAvatar = document.querySelector('.profile__avatar');
 const deleteMessageType = ".popup__message_type";
 const userId = 'fdbdaccad2c90e74c623abba';
 const popupSelector = ".popup__type_avatar";
@@ -61,6 +62,7 @@ export {popup,
   popupAvatarInput,
   popupFormAvatar,
   profileAvatar,
+  profileAvatarWrapp,
 }
 
 
