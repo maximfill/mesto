@@ -39,7 +39,7 @@ popupOpenEditButton.addEventListener("click", fillValueForm)
 popupForm.addEventListener("submit", formSubmitHandler);
 
 popupOpenButtonAdd.addEventListener("click", function() {
-  addFormValidator.resetForm()
+  // addFormValidator.resetForm()
   popupAddCard.open()
   popupAddCard.resetWaitSubmitButton();
 });

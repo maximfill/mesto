@@ -49,9 +49,9 @@ export default class Card {
   // Функция изменения вида лайка
   _showLikes() {
     if (this.likedCard(this._userId)) {
-      this._cardButtonLike.classList.add('card__button_active');
+      this._cardButtonLike.classList.add('card__likes-number_active');
     } else {
-      this._cardButtonLike.classList.remove('card__button_active');
+      this._cardButtonLike.classList.remove('card__likes-number_active');
     }
   }
 
