@@ -191,7 +191,7 @@ function addNewCard(event) {
     console.log(dataCard)
     const card = new Card(dataCard, userId, "#card__block",
       (name, link) => {
-        PopupWithSubmit.open(name, link)
+        popupWithImage.open(name, link)
       },
         //   3 аргумент безымянная функция, открывает попап 
       () => {
