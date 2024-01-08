@@ -1,0 +1,15 @@
+.card__number {
+  margin: 0 0 0 0 px;
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.card__number:hover {
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.29);
+  cursor: pointer;
+}

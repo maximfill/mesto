@@ -7,6 +7,7 @@ export default class FormValidator {
     this._inputErrorClass = settingsForm.inputErrorClass;
     this._errorClass = settingsForm.errorClass;
     this._formElement = formElement;
+    this._promptErrorSelector = settingsForm.promptErrorSelector;
   }
 // 8 возможность проверки
   enableValidation = () => {
@@ -19,10 +20,20 @@ export default class FormValidator {
   _toggleButtonState(inputList, buttonElement) {
     if (this._hasInvalidInput(inputList)) {
       buttonElement.classList.add(this._inactiveButtonClass);
+      buttonElement.setAttribute('disabled', '');
     } else {
       buttonElement.classList.remove(this._inactiveButtonClass); // сделать в css модификатор
+      buttonElement.removeAttribute('disabled', '');
     }
   }
+
+    // Переключение кнопок джля сброса формы
+    _checkSubmitButton() {
+      const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+      const submitButton = this._formElement.querySelector(this._submitButtonSelector);
+      this._toggleButtonState(inputList, submitButton);
+    }
+    
     // 6 установить прослушиватели событий
   _setEventListeners = () => {
     const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
@@ -67,4 +78,26 @@ export default class FormValidator {
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._errorClass);
   };
+
+   // Переключение кнопок джля сброса формы
+  _checkSubmitButton() {
+    const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    const submitButton = this._formElement.querySelector(this._submitButtonSelector);
+    this._toggleButtonState(inputList, submitButton);
+  }
+
+  // Функция для сброса формы
+  resetForm() {
+    const promtList = Array.from(this._formElement.querySelectorAll(this._promptErrorSelector));
+    const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    promtList.forEach((item) => {
+      item.textContent = "";
+      item.classList.remove(this._errorClass);
+    });
+    inputList.forEach((item) => {
+      item.classList.remove(this._inputErrorClass);
+    })
+    this._formElement.reset();
+    this._checkSubmitButton();
+  }
 } 

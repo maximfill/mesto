@@ -14,11 +14,10 @@
       <main>
         <!-- блок профиль -->
         <div class="profile">
-          <img
-            alt="Жак Ив Кусто"
-            class="profile__avatar"
-            src="<%=require('./images/profile__avatar.png')%> "
-          />'
+          <div class="profile__avatar-wrapp">
+            <img src="<%=require('./images/profile__avatar.png')%> " alt="Жак Ив Кусто" class="profile__avatar"/>
+            <img src="<%=require('./images/PencilAvatar.svg')%>" alt="Смена аватара" class="profile__avatar-edit"/>
+          </div>
           <div class="profile__info">
             <div class="profile__wrap">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -42,6 +41,50 @@
         <p class="footer__text">© 2023 Mesto Russia</p>
       </footer>
     </div>
+
+    <!-- Попап Вы уверены? --> 
+    <div class="popup popup__message_type">
+      <div class="popup__container">
+        <h3 class="popup__title">Вы уверены?</h3>
+          <form class="popup__form" name="deletion-profile" novalidate>
+            <input
+              class="popup__button-save"
+              type="submit"
+              name="submit"
+              value="Да"
+            />
+          </form>
+        <button class="popup__button-close" type="button"></button>
+      </div>
+    </div>
+
+    <!--  Всплывающее окно редактирования профиля аватара  --> 
+    <div class="popup popup__type_avatar">
+      <div class="popup__container">
+        <h3 class="popup__title">Обновить аватар</h3>
+        <form class="popup__form" name="editAvatar" novalidate>
+            <input
+              id="name-input"
+              type="url"
+              class="popup__input popup__input_name_name"
+              type="text"
+              name="name"
+              placeholder="Ссылка на картинку"
+              minlength="2" 
+              required
+            />
+            <span class='popup__input-error' id='name-input-error'></span>
+            <input
+              class="popup__button-save"
+              type="submit"
+              name="submit"
+              value="Сохранить"
+            />
+          </form>
+        <button class="popup__button-close" type="button"></button>
+      </div>
+    </div>
+
 
     <div class="popup popup_type_edit">
       <div class="popup__container">
@@ -78,8 +121,7 @@
       </div>
     </div>
 
-<!-- блок новый popup -->
-
+<!-- блок новый popup добавления новой картинкаи -->
     <div class="popup popup_type_add">
       <div class="popup__container">
         <h3 class="popup__title">Новое место</h3>
@@ -131,7 +173,10 @@
         <img class="card__image" alt="avatar">
         <div class="card__group">
           <h2 class="card__text">Карачаевск</h2>
-          <button type="button" class="card__button"></button>
+          <div class="card__box">
+            <button type="button" class="card__likes-number"></button>
+            <h4 class="card__number">3</h4>
+          </div>
         </div>
       </div>
     </template>

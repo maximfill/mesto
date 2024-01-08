@@ -4,21 +4,21 @@ import {
 from './constants'
 export default class Popup {
   constructor(popupSelector, closeButtonSelector) {
-    this._popup = document.querySelector(popupSelector);
-    this._closeButton = this._popup.querySelector(closeButtonSelector);
+    this._popup = document.querySelector(popupSelector);// получается мы создаем первым аргументом popupSelector,и ищем его через querySelector но прикол в том что При Создании Экземпляра 
+    this._closeButton = this._popup.querySelector(closeButtonSelector);//там уже другая Переменная  и каждый раз при СОЗДАНИИ ЭКЗЕМПЛЯРА мы можем подставляя название аргумента использовать ДРУГИЕ ПЕРЕМЕННЫЕ
 
     this._handlerEscClose = this._handlerEscClose.bind(this);
     this._handlerClickOverlay = this._handlerClickOverlay.bind(this);
   }
 
   open() {
-    this._popup.classList.add("popup_opened")
+    this._popup.classList.add("popup_opened");
     document.addEventListener('keydown', this._handlerEscClose);
     document.addEventListener('click', this._handlerClickOverlay);
   }
 
   close() {
-    this._popup.classList.remove("popup_opened")
+    this._popup.classList.remove("popup_opened");
     document.removeEventListener('keydown', this._handlerEscClose);
     document.removeEventListener('click', this._handlerClickOverlay);
   }
@@ -37,6 +37,6 @@ export default class Popup {
   setEventListeners() {
     this._closeButton.addEventListener('click', () => {
       this.close()
-    }); 
+    });
   }
 }

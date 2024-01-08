@@ -1,7 +1,13 @@
-.card__bin{
+.card__bin {
   height: 18px;
   width: 19px;
   position: absolute;
   top: 20px;
   right: 20px;
+}
+
+.card__bin:hover {
+  opacity: .5;
+  transition: 0.3s ease;
+  cursor: pointer;
 }
