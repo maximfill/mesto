@@ -48,7 +48,7 @@ popupOpenButtonAdd.addEventListener("click", function() {
 // попап редактирования аватара 
 profileAvatarWrapp.addEventListener("click",function() {
   popupEditAvatar.resetButtonText()
-  popupEditAvatarForms.resetForm() 
+  avatarFormValidator.resetForm() 
   popupEditAvatar.open()
 });
 
@@ -97,8 +97,8 @@ popupEditProfile.setEventListeners();
 const popupEditAvatar = new PopupWithForm(popupSelector, popupButtonSelector, formEditAvatarSubmitHandler)
 popupEditAvatar.setEventListeners();
 
-const popupEditAvatarForms = new FormValidator(settingsForm, popupFormAvatar);
-popupEditAvatarForms.enableValidation();
+const avatarFormValidator = new FormValidator(settingsForm, popupFormAvatar);
+avatarFormValidator.enableValidation();
 
 
 // Попап подтвеждения удаления
@@ -216,10 +216,10 @@ function addNewCard(event) {
 // ОБРАБОТЧИК ОТКРЫТИЯ ПОПАПА РЕДАКТИРОВАНИЯ
 const userInfo = new UserInfo(".profile__title", ".profile__text");
 function fillValueForm() {
+  popupEditProfile.resetButtonText() // обнуление текста при открытие попапа
+  editFormValidator.resetForm() //Функция для сброса формы
+  popupEditProfile.open() 
   const currentInfo = userInfo.getUserInfo();
   nameInput.value = currentInfo.name;
   professionInput.value = currentInfo.info; 
-  popupEditProfile.open() 
-  popupEditProfile.resetButtonText() // обнуление текста при открытие попапа
-  editFormValidator.resetForm() //Функция для сброса формы
 };

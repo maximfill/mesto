@@ -97,7 +97,6 @@ export default class FormValidator {
     inputList.forEach((item) => {
       item.classList.remove(this._inputErrorClass);
     })
-    console.log(this._formElement)
     this._formElement.reset();
     this._checkSubmitButton();
   }

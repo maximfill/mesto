@@ -102,5 +102,6 @@ export default class Api {
   }
   // Обработчик ошибок
   _errorHandler(error) {
+    console.log(error);
   }
 }
